@@ -28,14 +28,8 @@ $latest = new WP_Query(
 <main id="primary" class="site-main">
 
 	<section class="rk-home-hero">
-		<div id="rkHeroCarousel" class="carousel slide carousel-fade rk-home-hero__slides" data-bs-ride="carousel" data-bs-interval="6000" aria-hidden="true">
-			<div class="carousel-inner">
-				<?php foreach ( array( 'a5', 'a4', 'a3', 'a2', 'a1' ) as $i => $name ) : ?>
-					<div class="carousel-item<?php echo 0 === $i ? ' active' : ''; ?>">
-						<img src="<?php echo esc_url( $img . $name . '2000_561.png' ); ?>" alt="" <?php echo 0 === $i ? 'fetchpriority="high"' : 'loading="lazy"'; ?>>
-					</div>
-				<?php endforeach; ?>
-			</div>
+		<div class="rk-home-hero__slides">
+			<?php get_template_part( 'template-parts/hero-rowing' ); ?>
 		</div>
 		<div class="rk-home-hero__shade"></div>
 		<div class="container rk-home-hero__content">

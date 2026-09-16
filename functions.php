@@ -172,6 +172,7 @@ add_action( 'wp_enqueue_scripts', 'rowkz_scripts' );
 
 // AJAX-фильтр каталога и импорт товаров — см. inc/catalog.php
 require get_template_directory() . '/inc/catalog.php';
+require get_template_directory() . '/inc/orders.php';
 
 function register_custom_taxonomies() {
     register_taxonomy('proizvoditel', 'post', [

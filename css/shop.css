@@ -239,3 +239,53 @@ h1, h2, h3, h4 { color: var(--rk-ink); letter-spacing: -.01em; }
 @media (prefers-reduced-motion: reduce) {
 	.rk-tile, .rk-tile__media img, .rk-menu .sub-menu { transition: none; }
 }
+
+/* Анимированный фон главной */
+.rk-home-hero__slides { position: absolute; inset: 0; }
+.rk-rowing { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.rk-home-hero__shade { background: linear-gradient(90deg, rgba(11, 26, 40, .82) 0%, rgba(11, 26, 40, .45) 42%, rgba(11, 26, 40, 0) 70%); }
+@media (max-width: 767.98px) {
+	.rk-home-hero__shade { background: linear-gradient(0deg, rgba(11, 26, 40, .9) 0%, rgba(11, 26, 40, .55) 55%, rgba(11, 26, 40, .1) 100%); }
+}
+
+/* ================= Заявка / оформление ================= */
+.rk-cart .modal-header { border-bottom: 1px solid var(--rk-line); padding: 20px 24px; }
+.rk-cart .modal-title { font-weight: 700; }
+.rk-cart .modal-body { padding: 20px 24px; }
+.rk-cart .modal-footer { border-top: 1px solid var(--rk-line); padding: 16px 24px; gap: 8px; }
+.rk-steps { display: flex; gap: 6px; margin-bottom: 18px; font-size: .8rem; }
+.rk-step { flex: 1; text-align: center; padding: .4rem .5rem; border-radius: var(--rk-radius-sm); background: var(--rk-sand); color: var(--rk-ink-soft); font-weight: 600; }
+.rk-step.is-active { background: var(--rk-ink); color: #fff; }
+.rk-cart .cart-empty { text-align: center; padding: 36px 0; color: var(--rk-ink-soft); }
+.rk-cart .cart-empty .bi { font-size: 2.6rem; display: block; margin-bottom: 8px; color: var(--rk-line); }
+.rk-cart .cart-item { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--rk-line); }
+.rk-cart .cart-item:last-child { border-bottom: 0; }
+.rk-cart .cart-item img, .rk-cart .cart-item-noimg { width: 72px; height: 54px; object-fit: contain; border-radius: 10px; background: var(--rk-sand); flex: 0 0 auto; }
+.rk-cart .cart-item-details { flex: 1; min-width: 0; }
+.rk-cart .cart-item-title { font-weight: 600; line-height: 1.3; }
+.rk-cart .cart-item-price { color: var(--rk-ink-soft); font-size: .85rem; }
+.rk-cart .cart-item-quantity { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--rk-line); border-radius: var(--rk-radius-sm); padding: 2px; }
+.rk-cart .cart-item-quantity span { min-width: 22px; text-align: center; font-weight: 600; }
+.rk-cart .quantity-btn { width: 30px; height: 30px; border: 0; border-radius: 50%; background: transparent; color: var(--rk-ink); font-size: 1.1rem; line-height: 1; }
+.rk-cart .quantity-btn:hover { background: var(--rk-sand); }
+.rk-cart .cart-item-remove { width: 34px; height: 34px; border: 0; border-radius: 50%; background: transparent; color: var(--rk-ink-soft); }
+.rk-cart .cart-item-remove:hover { background: #fbe9e7; color: #b3261e; }
+.rk-cart .form-label { font-weight: 600; font-size: .9rem; }
+.rk-cart textarea.form-control { border-radius: var(--rk-radius); }
+.rk-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.rk-done { text-align: center; padding: 28px 0 12px; }
+.rk-done .bi { font-size: 3.2rem; color: #2e7d5b; }
+.rk-done h3 { font-weight: 700; margin: 10px 0 6px; }
+.rk-done p { color: var(--rk-ink-soft); }
+.rk-cart .alert { border-radius: var(--rk-radius); }
+.rk-toast { position: fixed; left: 50%; bottom: 24px; z-index: 2000; transform: translate(-50%, 20px); opacity: 0; display: flex; align-items: center; gap: 10px; background: var(--rk-ink); color: #fff; padding: .7rem 1rem .7rem 1.2rem; border-radius: var(--rk-radius-sm); box-shadow: var(--rk-shadow-hover); transition: opacity .25s, transform .25s; max-width: calc(100vw - 32px); }
+.rk-toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+.rk-toast .bi { color: #7fd3a8; }
+.rk-toast__link { border: 0; background: rgba(255, 255, 255, .14); color: #fff; border-radius: var(--rk-radius-sm); padding: .25rem .8rem; font-weight: 600; }
+.rk-toast__link:hover { background: rgba(255, 255, 255, .24); }
+@media (max-width: 575.98px) {
+	.rk-cart .modal-footer .btn { flex: 1 1 auto; }
+	.rk-cart .cart-item { flex-wrap: wrap; }
+	.rk-cart .cart-item-details { flex-basis: calc(100% - 90px); }
+	.rk-cart .cart-item-quantity { margin-left: 86px; }
+}

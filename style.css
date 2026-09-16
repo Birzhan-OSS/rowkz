@@ -533,17 +533,17 @@ table {
 /* Links
 --------------------------------------------- */
 a {
-	color: #4169e1;
+	color: #1d6f93;
 }
 
 a:visited {
-	color: #800080;
+	color: #1d6f93;
 }
 
 a:hover,
 a:focus,
 a:active {
-	color: #191970;
+	color: #145672;
 }
 
 a:focus {
