@@ -169,76 +169,8 @@ function rowkz_scripts() {
 add_action( 'wp_enqueue_scripts', 'rowkz_scripts' );
 
 
-add_action('wp_ajax_filter_catalog', 'rowkz_filter_catalog');
-add_action('wp_ajax_nopriv_filter_catalog', 'rowkz_filter_catalog');
-function rowkz_filter_catalog() {
-    $args = [
-        'post_type' => 'post',
-        'posts_per_page' => 12,
-    ];
-    
-    // Поиск по тексту
-    if (!empty($_POST['s'])) {
-        $args['s'] = sanitize_text_field($_POST['s']);
-    }
-    
-    // Фильтр по подрубрике лодок
-    if (!empty($_POST['lodki_subcat'])) {
-        $args['cat'] = intval($_POST['lodki_subcat']);
-    }
-    
-    // Фильтр по производителю (таксономия)
-    if (!empty($_POST['proizvoditel'])) {
-        $args['tax_query'][] = [
-            'taxonomy' => 'proizvoditel',
-            'field' => 'slug',
-            'terms' => sanitize_text_field($_POST['proizvoditel']),
-        ];
-    }
-    
-    // Фильтр по материалу (таксономия)
-    if (!empty($_POST['material'])) {
-        $args['tax_query'][] = [
-            'taxonomy' => 'material',
-            'field' => 'slug',
-            'terms' => sanitize_text_field($_POST['material']),
-        ];
-    }
-    
-    // Если есть несколько таксономий, объединяем их через AND
-    if (isset($args['tax_query']) && count($args['tax_query']) > 1) {
-        $args['tax_query']['relation'] = 'AND';
-    }
-    
-    $query = new WP_Query($args);
-    if ($query->have_posts()):
-        while ($query->have_posts()): $query->the_post(); ?>
-            <div class="col-md-3 mb-4">
-                <div class="card h-100 shadow-sm animate-fade-in-up">
-                    <?php if (has_post_thumbnail()): ?>
-                        <img src="<?php the_post_thumbnail_url('medium'); ?>" class="card-img-top" alt="<?php the_title(); ?>">
-                    <?php endif; ?>
-                    <div class="card-body">
-                        <h5 class="card-title"><?php the_title(); ?></h5>
-                        <p class="card-text"><?php echo wp_trim_words(get_the_excerpt(), 15); ?></p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="price-placeholder text-muted small">Цена по запросу</span>
-                            <button class="btn btn-primary btn-sm" onclick="addToCart(<?php echo get_the_ID(); ?>, '<?php echo the_title(); ?>', 0, '<?php echo the_post_thumbnail_url('thumbnail'); ?>')">
-                                <i class="bi bi-cart-plus"></i> В корзину
-                            </button>
-                        </div>
-                        <a href="<?php the_permalink(); ?>" class="btn btn-outline-primary btn-sm mt-2 w-100">Подробнее</a>
-                    </div>
-                </div>
-            </div>
-        <?php endwhile;
-        wp_reset_postdata();
-    else:
-        echo '<div class="col-12"><p>Товары не найдены.</p></div>';
-    endif;
-    wp_die();
-}
-
+// AJAX-фильтр каталога и импорт товаров — см. inc/catalog.php
+require get_template_directory() . '/inc/catalog.php';
 
 function register_custom_taxonomies() {
     register_taxonomy('proizvoditel', 'post', [
