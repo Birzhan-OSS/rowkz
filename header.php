@@ -23,8 +23,8 @@
 
 	<div class="rk-topbar">
 		<div class="container">
-			<span><i class="bi bi-patch-check"></i> Официальный дистрибьютор Swift в Казахстане</span>
-			<a href="<?php echo esc_url( rowkz_page_url( 'template-contact.php' ) ); ?>">Связаться с нами <i class="bi bi-arrow-right"></i></a>
+			<span><i class="bi bi-patch-check"></i> <?php echo esc_html( rowkz_t( 'Официальный дистрибьютор Swift в Казахстане' ) ); ?></span>
+			<a href="<?php echo esc_url( rowkz_page_url( 'template-contact.php' ) ); ?>"><?php echo esc_html( rowkz_t( 'Связаться с нами' ) ); ?> <i class="bi bi-arrow-right"></i></a>
 		</div>
 	</div>
 
@@ -34,7 +34,7 @@
 				<img src="<?php echo esc_url( get_template_directory_uri() . '/img/logo222.svg' ); ?>" alt="<?php bloginfo( 'name' ); ?>" width="160" height="48">
 			</a>
 
-			<nav id="rk-nav" class="rk-nav" aria-label="Основное меню">
+			<nav id="rk-nav" class="rk-nav" aria-label="<?php echo esc_attr( rowkz_t( 'Основное меню' ) ); ?>">
 				<?php
 				wp_nav_menu(
 					array(
@@ -49,14 +49,15 @@
 			</nav>
 
 			<div class="rk-actions">
+				<?php rowkz_language_switcher(); ?>
 				<a class="rk-icon-btn d-none d-md-inline-flex" href="<?php echo esc_url( rowkz_page_url( 'template-contact.php' ) ); ?>" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
 				<a class="rk-icon-btn d-none d-md-inline-flex" href="<?php echo esc_url( rowkz_page_url( 'template-contact.php' ) ); ?>" aria-label="Telegram"><i class="bi bi-telegram"></i></a>
-				<button type="button" class="rk-cart-btn cart-icon-container" data-bs-toggle="modal" data-bs-target="#cartModal" aria-label="Корзина">
+				<button type="button" class="rk-cart-btn cart-icon-container" data-bs-toggle="modal" data-bs-target="#cartModal" aria-label="<?php echo esc_attr( rowkz_t( 'Корзина' ) ); ?>">
 					<i class="bi bi-bag"></i>
-					<span class="rk-cart-label d-none d-sm-inline">Заявка</span>
+					<span class="rk-cart-label d-none d-sm-inline"><?php echo esc_html( rowkz_t( 'Заявка' ) ); ?></span>
 					<span class="cart-count" id="cart-count">0</span>
 				</button>
-				<button type="button" class="rk-burger" aria-controls="rk-nav" aria-expanded="false" aria-label="Открыть меню">
+				<button type="button" class="rk-burger" aria-controls="rk-nav" aria-expanded="false" aria-label="<?php echo esc_attr( rowkz_t( 'Открыть меню' ) ); ?>">
 					<span></span><span></span><span></span>
 				</button>
 			</div>
@@ -71,14 +72,14 @@
 		burger.addEventListener('click', function () {
 			var open = header.classList.toggle('is-open');
 			burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-			burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+			burger.setAttribute('aria-label', open ? <?php echo wp_json_encode( rowkz_t( 'Закрыть меню' ) ); ?> : <?php echo wp_json_encode( rowkz_t( 'Открыть меню' ) ); ?>);
 		});
 		nav.querySelectorAll('.menu-item-has-children > a').forEach(function (link) {
 			var btn = document.createElement('button');
 			btn.type = 'button';
 			btn.className = 'rk-sub-toggle';
 			btn.setAttribute('aria-expanded', 'false');
-			btn.setAttribute('aria-label', 'Подменю: ' + link.textContent.trim());
+			btn.setAttribute('aria-label', <?php echo wp_json_encode( rowkz_t( 'Подменю' ) . ': ' ); ?> + link.textContent.trim());
 			btn.innerHTML = '<i class="bi bi-chevron-down"></i>';
 			btn.addEventListener('click', function () {
 				var li = link.parentElement, open = li.classList.toggle('is-open');

@@ -267,7 +267,7 @@ add_action( 'wp_ajax_nopriv_rk_checkout', 'rowkz_handle_checkout' );
 
 function rowkz_handle_checkout() {
 	if ( ! check_ajax_referer( 'rk_checkout', 'nonce', false ) ) {
-		wp_send_json_error( array( 'message' => 'Сессия устарела. Обновите страницу и попробуйте ещё раз.' ), 403 );
+		wp_send_json_error( array( 'message' => rowkz_t( 'Сессия устарела. Обновите страницу и попробуйте ещё раз.' ) ), 403 );
 	}
 	// Ловушка для ботов: скрытое поле должно быть пустым.
 	if ( ! empty( $_POST['website'] ) ) {
@@ -278,7 +278,7 @@ function rowkz_handle_checkout() {
 	$rl_key  = 'rk_co_' . md5( $ip );
 	$attempt = (int) get_transient( $rl_key );
 	if ( $attempt >= 5 ) {
-		wp_send_json_error( array( 'message' => 'Слишком много заявок. Попробуйте через несколько минут или позвоните нам.' ), 429 );
+		wp_send_json_error( array( 'message' => rowkz_t( 'Слишком много заявок. Попробуйте через несколько минут или позвоните нам.' ) ), 429 );
 	}
 
 	$name    = sanitize_text_field( wp_unslash( $_POST['name'] ?? '' ) );
@@ -289,13 +289,13 @@ function rowkz_handle_checkout() {
 
 	$errors = array();
 	if ( mb_strlen( $name ) < 2 || mb_strlen( $name ) > 80 ) {
-		$errors['name'] = 'Укажите имя.';
+		$errors['name'] = rowkz_t( 'Укажите имя.' );
 	}
 	if ( strlen( $digits ) < 10 || strlen( $digits ) > 15 ) {
-		$errors['phone'] = 'Укажите телефон в формате +7 700 000 00 00.';
+		$errors['phone'] = rowkz_t( 'Укажите телефон в формате +7 700 000 00 00.' );
 	}
 	if ( ! is_email( $email ) ) {
-		$errors['email'] = 'Укажите корректный email.';
+		$errors['email'] = rowkz_t( 'Укажите корректный email.' );
 	}
 
 	$raw_items = json_decode( wp_unslash( $_POST['items'] ?? '[]' ), true );
@@ -309,10 +309,10 @@ function rowkz_handle_checkout() {
 		}
 	}
 	if ( ! $items ) {
-		$errors['items'] = 'Корзина пуста.';
+		$errors['items'] = rowkz_t( 'Корзина пуста.' );
 	}
 	if ( $errors ) {
-		wp_send_json_error( array( 'message' => 'Проверьте поля формы.', 'fields' => $errors ), 422 );
+		wp_send_json_error( array( 'message' => rowkz_t( 'Проверьте поля формы.' ), 'fields' => $errors ), 422 );
 	}
 	set_transient( $rl_key, $attempt + 1, 10 * MINUTE_IN_SECONDS );
 	$items = array_values( $items );
@@ -323,7 +323,7 @@ function rowkz_handle_checkout() {
 		'post_title'  => 'Заявка — ' . $name,
 	), true );
 	if ( is_wp_error( $order_id ) ) {
-		wp_send_json_error( array( 'message' => 'Не удалось сохранить заявку. Позвоните нам, пожалуйста.' ), 500 );
+		wp_send_json_error( array( 'message' => rowkz_t( 'Не удалось сохранить заявку. Позвоните нам, пожалуйста.' ) ), 500 );
 	}
 	wp_update_post( array( 'ID' => $order_id, 'post_title' => sprintf( 'Заявка №%d — %s', $order_id, $name ) ) );
 	update_post_meta( $order_id, '_rk_name', $name );
@@ -332,6 +332,7 @@ function rowkz_handle_checkout() {
 	update_post_meta( $order_id, '_rk_comment', $comment );
 	update_post_meta( $order_id, '_rk_items', $items );
 	update_post_meta( $order_id, '_rk_status', 'new' );
+	update_post_meta( $order_id, '_rk_lang', rowkz_lang() );
 
 	$admin_link = admin_url( 'post.php?post=' . $order_id . '&action=edit' );
 
@@ -360,7 +361,7 @@ function rowkz_handle_checkout() {
 	}
 	rowkz_telegram_send(
 		'🛶 <b>Новая заявка №' . (int) $order_id . "</b>\n\n" .
-		'👤 ' . esc_html( $name ) . "\n" .
+		'👤 ' . esc_html( $name ) . ' · ' . strtoupper( rowkz_lang() ) . "\n" .
 		'📞 ' . esc_html( $phone ) . "\n" .
 		'✉️ ' . esc_html( $email ) . "\n" .
 		( $comment ? '💬 ' . esc_html( $comment ) . "\n" : '' ) .

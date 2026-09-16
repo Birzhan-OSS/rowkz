@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 	let cart = load();
 
+	const L = (window.rkI18n && window.rkI18n.strings) || {};
+	const T = (ru) => L[ru] || ru;
+
 	const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 	const $ = (sel) => modalEl.querySelector(sel);
@@ -37,28 +40,28 @@ document.addEventListener('DOMContentLoaded', function () {
 		cartTotalDiv.classList.toggle('d-none', !(step === 'cart' && hasItems));
 		btnBack.hidden = step !== 'form';
 		btnSubmit.hidden = step !== 'form';
-		btnClose.textContent = step === 'done' ? 'Закрыть' : 'Продолжить выбор';
+		btnClose.textContent = step === 'done' ? T('Закрыть') : T('Продолжить выбор');
 		btnClose.hidden = step === 'form';
 		if (step === 'form') setTimeout(() => form.elements.name.focus(), 50);
 	}
 
 	function renderCart() {
 		if (cart.length === 0) {
-			cartContent.innerHTML = '<div class="cart-empty"><i class="bi bi-bag-x"></i><p>В заявке пока нет товаров</p></div>';
+			cartContent.innerHTML = '<div class="cart-empty"><i class="bi bi-bag-x"></i><p>' + esc(T('В заявке пока нет товаров')) + '</p></div>';
 		} else {
 			cartContent.innerHTML = cart.map((item, index) => `
 				<div class="cart-item">
 					${item.image ? `<img src="${esc(item.image)}" alt="">` : '<span class="cart-item-noimg"></span>'}
 					<div class="cart-item-details">
 						<div class="cart-item-title">${esc(item.title)}</div>
-						<div class="cart-item-price">Цена по запросу</div>
+						<div class="cart-item-price">${esc(T('Цена по запросу'))}</div>
 					</div>
-					<div class="cart-item-quantity" role="group" aria-label="Количество">
-						<button type="button" class="quantity-btn" data-qty="-1" data-index="${index}" aria-label="Меньше">−</button>
+					<div class="cart-item-quantity" role="group" aria-label="${esc(T('Количество'))}">
+						<button type="button" class="quantity-btn" data-qty="-1" data-index="${index}" aria-label="${esc(T('Меньше'))}">−</button>
 						<span>${Number(item.quantity) || 1}</span>
-						<button type="button" class="quantity-btn" data-qty="1" data-index="${index}" aria-label="Больше">+</button>
+						<button type="button" class="quantity-btn" data-qty="1" data-index="${index}" aria-label="${esc(T('Больше'))}">+</button>
 					</div>
-					<button type="button" class="cart-item-remove" data-remove="${index}" aria-label="Удалить"><i class="bi bi-x-lg"></i></button>
+					<button type="button" class="cart-item-remove" data-remove="${index}" aria-label="${esc(T('Удалить'))}"><i class="bi bi-x-lg"></i></button>
 				</div>`).join('');
 		}
 		updateCartCount();
@@ -80,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 		save();
 		updateCartCount();
-		showToast('Товар добавлен в заявку');
+		showToast(T('Товар добавлен в заявку'));
 	};
 
 	window.updateQuantity = function (index, change) {
@@ -104,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		toast.className = 'rk-toast';
 		toast.setAttribute('role', 'status');
 		toast.innerHTML = '<i class="bi bi-check2-circle"></i> ' + esc(message) +
-			' <button type="button" class="rk-toast__link">Открыть</button>';
+			' <button type="button" class="rk-toast__link">' + esc(T('Открыть')) + '</button>';
 		toast.querySelector('button').addEventListener('click', () => {
 			window.bootstrap && window.bootstrap.Modal.getOrCreateInstance(modalEl).show();
 			toast.remove();
@@ -130,9 +133,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		const name = form.elements.name.value.trim();
 		const phone = form.elements.phone.value.replace(/\D/g, '');
 		const email = form.elements.email.value.trim();
-		if (name.length < 2) { showFieldError('name', 'Укажите имя.'); ok = false; }
-		if (phone.length < 10 || phone.length > 15) { showFieldError('phone', 'Укажите телефон в формате +7 700 000 00 00.'); ok = false; }
-		if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showFieldError('email', 'Укажите корректный email.'); ok = false; }
+		if (name.length < 2) { showFieldError('name', T('Укажите имя.')); ok = false; }
+		if (phone.length < 10 || phone.length > 15) { showFieldError('phone', T('Укажите телефон в формате +7 700 000 00 00.')); ok = false; }
+		if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showFieldError('email', T('Укажите корректный email.')); ok = false; }
 		if (!ok) { const first = form.querySelector('.is-invalid'); first && first.focus(); }
 		return ok;
 	}
@@ -145,6 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		if (!validate() || !window.rkCheckout) return;
 		const body = new URLSearchParams({
 			action: 'rk_checkout',
+			lang: (window.rkI18n && window.rkI18n.lang) || 'ru',
 			nonce: window.rkCheckout.nonce,
 			name: form.elements.name.value.trim(),
 			phone: form.elements.phone.value.trim(),
@@ -154,9 +158,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			items: JSON.stringify(cart.map((i) => ({ id: i.postId, qty: i.quantity })))
 		});
 		btnSubmit.disabled = true;
-		btnSubmit.textContent = 'Отправляем…';
+		btnSubmit.textContent = T('Отправляем…');
 		fetch(window.rkCheckout.ajaxUrl, { method: 'POST', credentials: 'same-origin', body: body })
-			.then((r) => r.json().catch(() => ({ success: false, data: { message: 'Ошибка сервера.' } })))
+			.then((r) => r.json().catch(() => ({ success: false, data: { message: T('Ошибка сервера.') } })))
 			.then((res) => {
 				if (res.success) {
 					modalEl.querySelector('[data-order-number]').textContent = res.data.order ? '№' + res.data.order : '—';
@@ -168,17 +172,17 @@ document.addEventListener('DOMContentLoaded', function () {
 				} else {
 					const d = res.data || {};
 					Object.entries(d.fields || {}).forEach(([k, v]) => showFieldError(k, v));
-					formError.textContent = d.message || 'Не удалось отправить заявку.';
+					formError.textContent = d.message || T('Не удалось отправить заявку.');
 					formError.hidden = false;
 				}
 			})
 			.catch(() => {
-				formError.textContent = 'Нет связи с сервером. Проверьте интернет и попробуйте ещё раз.';
+				formError.textContent = T('Нет связи с сервером. Проверьте интернет и попробуйте ещё раз.');
 				formError.hidden = false;
 			})
 			.finally(() => {
 				btnSubmit.disabled = false;
-				btnSubmit.textContent = 'Отправить заявку';
+				btnSubmit.textContent = T('Отправить заявку');
 			});
 	});
 

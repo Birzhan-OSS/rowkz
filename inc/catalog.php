@@ -43,11 +43,16 @@ function rowkz_catalog_structure() {
  */
 function rowkz_page_url( $template ) {
 	static $cache = array();
-	if ( ! isset( $cache[ $template ] ) ) {
-		$pages              = get_pages( array( 'meta_key' => '_wp_page_template', 'meta_value' => $template, 'number' => 1, 'post_status' => 'publish' ) );
-		$cache[ $template ] = $pages ? get_permalink( $pages[0] ) : home_url( '/' );
+	$key = $template . '|' . rowkz_lang();
+	if ( ! isset( $cache[ $key ] ) ) {
+		$args = array( 'meta_key' => '_wp_page_template', 'meta_value' => $template, 'number' => 1, 'post_status' => 'publish' );
+		if ( function_exists( 'pll_get_post' ) ) {
+			$args['lang'] = 'ru';
+		}
+		$pages         = get_pages( $args );
+		$cache[ $key ] = $pages ? get_permalink( rowkz_tr_post( $pages[0]->ID ) ) : home_url( '/' );
 	}
-	return $cache[ $template ];
+	return $cache[ $key ];
 }
 
 /**
@@ -56,11 +61,11 @@ function rowkz_page_url( $template ) {
  * Если такого товара нет — берётся последний товар раздела с фото.
  */
 function rowkz_category_cover( $slug, $prefer = '' ) {
-	$cat = get_category_by_slug( $slug );
+	$cat = rowkz_category( $slug );
 	if ( ! $cat ) {
 		return '';
 	}
-	$args = array( 'cat' => $cat->term_id, 'numberposts' => 1, 'fields' => 'ids', 'meta_query' => array( array( 'key' => '_thumbnail_id', 'compare' => 'EXISTS' ) ) );
+	$args = array( 'lang' => rowkz_lang(), 'cat' => $cat->term_id, 'numberposts' => 1, 'fields' => 'ids', 'meta_query' => array( array( 'key' => '_thumbnail_id', 'compare' => 'EXISTS' ) ) );
 	if ( $prefer ) {
 		$pref = get_posts( array_merge( $args, array( 'meta_query' => array( 'relation' => 'AND', array( 'key' => '_thumbnail_id', 'compare' => 'EXISTS' ), array( 'key' => '_rowkz_source_url', 'value' => $prefer, 'compare' => 'LIKE' ) ) ) ) );
 		if ( $pref ) {
@@ -111,10 +116,10 @@ function rowkz_render_product_card() {
 				<h3 class="rk-card__title"><a href="<?php the_permalink(); ?>"><?php echo esc_html( $title ); ?></a></h3>
 				<p class="rk-card__text"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 20 ) ); ?></p>
 				<div class="rk-card__foot">
-					<div class="rk-price">Цена по запросу<small>Доставка по Казахстану</small></div>
+					<div class="rk-price"><?php echo esc_html( rowkz_t( 'Цена по запросу' ) ); ?><small><?php echo esc_html( rowkz_t( 'Доставка по Казахстану' ) ); ?></small></div>
 					<button type="button" class="btn btn-primary btn-sm px-3"
 						onclick="<?php echo esc_attr( sprintf( 'addToCart(%d, %s, 0, %s)', $id, wp_json_encode( $title ), wp_json_encode( (string) $thumb ) ) ); ?>">
-						<i class="bi bi-bag-plus me-1"></i> В корзину
+						<i class="bi bi-bag-plus me-1"></i> <?php echo esc_html( rowkz_t( 'В корзину' ) ); ?>
 					</button>
 				</div>
 			</div>
@@ -131,6 +136,9 @@ function rowkz_filter_catalog() {
 		'post_status'    => 'publish',
 		'posts_per_page' => 60,
 	);
+	if ( function_exists( 'pll_get_post' ) ) {
+		$args['lang'] = rowkz_lang();
+	}
 
 	if ( ! empty( $_POST['s'] ) ) {
 		$args['s'] = sanitize_text_field( wp_unslash( $_POST['s'] ) );
@@ -141,7 +149,7 @@ function rowkz_filter_catalog() {
 	if ( $subcat ) {
 		$args['cat'] = $subcat;
 	} elseif ( ! empty( $_POST['root'] ) ) {
-		$root = get_category_by_slug( sanitize_title( wp_unslash( $_POST['root'] ) ) );
+		$root = rowkz_category( sanitize_title( wp_unslash( $_POST['root'] ) ) );
 		// Рубрики ещё нет — показываем пустой раздел, а не все товары сайта.
 		$args['cat'] = $root ? (int) $root->term_id : -1;
 		if ( ! $root ) {
@@ -172,7 +180,7 @@ function rowkz_filter_catalog() {
 		}
 		wp_reset_postdata();
 	} else {
-		echo '<div class="col-12 rk-empty"><p>В этом разделе пока нет товаров. Напишите нам — подберём под ваш запрос.</p></div>';
+		echo '<div class="col-12 rk-empty"><p>' . esc_html( rowkz_t( 'В этом разделе пока нет товаров. Напишите нам — подберём под ваш запрос.' ) ) . '</p></div>';
 	}
 	wp_die();
 }

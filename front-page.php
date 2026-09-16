@@ -23,6 +23,7 @@ $latest = new WP_Query(
 		'posts_per_page'      => 6,
 		'ignore_sticky_posts' => true,
 		'meta_key'            => '_thumbnail_id',
+		'lang'                => rowkz_lang(),
 	)
 );
 ?>
@@ -34,12 +35,12 @@ $latest = new WP_Query(
 		</div>
 		<div class="rk-home-hero__shade"></div>
 		<div class="container rk-home-hero__content">
-			<div class="rk-eyebrow">Официальный дистрибьютор Swift · Казахстан</div>
-			<h1>Лодки, вёсла и тренажеры для академической гребли</h1>
-			<p>Оснащаем спортсменов, клубы и спортивные школы: подбор модели, поставка и сервис.</p>
+			<div class="rk-eyebrow"><?php echo esc_html( rowkz_t( 'Официальный дистрибьютор Swift · Казахстан' ) ); ?></div>
+			<h1><?php echo esc_html( rowkz_t( 'Лодки, вёсла и тренажеры для академической гребли' ) ); ?></h1>
+			<p><?php echo esc_html( rowkz_t( 'Оснащаем спортсменов, клубы и спортивные школы: подбор модели, поставка и сервис.' ) ); ?></p>
 			<div class="rk-home-hero__cta">
-				<a class="btn btn-light btn-lg" href="<?php echo esc_url( rowkz_page_url( 'template-lodki.php' ) ); ?>">Смотреть каталог</a>
-				<a class="btn btn-outline-light btn-lg" href="<?php echo esc_url( rowkz_page_url( 'template-contact.php' ) ); ?>">Получить консультацию</a>
+				<a class="btn btn-light btn-lg" href="<?php echo esc_url( rowkz_page_url( 'template-lodki.php' ) ); ?>"><?php echo esc_html( rowkz_t( 'Смотреть каталог' ) ); ?></a>
+				<a class="btn btn-outline-light btn-lg" href="<?php echo esc_url( rowkz_page_url( 'template-contact.php' ) ); ?>"><?php echo esc_html( rowkz_t( 'Получить консультацию' ) ); ?></a>
 			</div>
 		</div>
 	</section>
@@ -48,8 +49,8 @@ $latest = new WP_Query(
 		<div class="container">
 			<div class="rk-section__head">
 				<div>
-					<div class="rk-kicker">Каталог</div>
-					<h2>Разделы</h2>
+					<div class="rk-kicker"><?php echo esc_html( rowkz_t( 'Каталог' ) ); ?></div>
+					<h2><?php echo esc_html( rowkz_t( 'Разделы' ) ); ?></h2>
 				</div>
 			</div>
 			<div class="row rk-grid">
@@ -61,8 +62,8 @@ $latest = new WP_Query(
 						<a class="rk-tile" href="<?php echo esc_url( rowkz_page_url( $tpl ) ); ?>">
 							<span class="rk-tile__media"><?php if ( $cover ) : ?><img src="<?php echo esc_url( $cover ); ?>" alt="" loading="lazy"><?php endif; ?></span>
 							<span class="rk-tile__body">
-								<span class="rk-tile__title"><?php echo esc_html( $name ); ?> <i class="bi bi-arrow-right"></i></span>
-								<span class="rk-tile__text"><?php echo esc_html( $desc ); ?></span>
+								<span class="rk-tile__title"><?php echo esc_html( rowkz_t( $name ) ); ?> <i class="bi bi-arrow-right"></i></span>
+								<span class="rk-tile__text"><?php echo esc_html( rowkz_t( $desc ) ); ?></span>
 							</span>
 						</a>
 					</div>
@@ -76,10 +77,10 @@ $latest = new WP_Query(
 		<div class="container">
 			<div class="rk-section__head">
 				<div>
-					<div class="rk-kicker">Ассортимент</div>
-					<h2>Популярные товары</h2>
+					<div class="rk-kicker"><?php echo esc_html( rowkz_t( 'Ассортимент' ) ); ?></div>
+					<h2><?php echo esc_html( rowkz_t( 'Популярные товары' ) ); ?></h2>
 				</div>
-				<a class="btn btn-outline-primary" href="<?php echo esc_url( rowkz_page_url( 'template-lodki.php' ) ); ?>">Весь каталог</a>
+				<a class="btn btn-outline-primary" href="<?php echo esc_url( rowkz_page_url( 'template-lodki.php' ) ); ?>"><?php echo esc_html( rowkz_t( 'Весь каталог' ) ); ?></a>
 			</div>
 			<div class="row rk-grid">
 				<?php
@@ -98,14 +99,14 @@ $latest = new WP_Query(
 		<div class="container">
 			<div class="row g-5 align-items-center">
 				<div class="col-lg-6">
-					<div class="rk-photo"><img src="<?php echo esc_url( $img . '7.jpg' ); ?>" alt="Гребная лодка Swift" loading="lazy"></div>
+					<div class="rk-photo"><img src="<?php echo esc_url( $img . '7.jpg' ); ?>" alt="<?php echo esc_attr( rowkz_t( 'Гребная лодка Swift' ) ); ?>" loading="lazy"></div>
 				</div>
 				<div class="col-lg-6">
-					<div class="rk-kicker">О компании</div>
-					<h2>Добро пожаловать в Rowkz</h2>
-					<p class="rk-lead">Мы — официальный дистрибьютор Swift, производителя лодок для академической гребли с 2005 года. Продукция Swift представлена более чем в 50 странах.</p>
-					<p class="rk-muted">Предлагаем полный ассортимент: лодки и вёсла, тренажеры, аксессуары, системы хранения и оснащение для гребных клубов и спортивных школ. Наша цель — сделать греблю доступной и комфортной.</p>
-					<a class="btn btn-primary btn-lg mt-2" href="<?php echo esc_url( rowkz_page_url( 'template-about.php' ) ); ?>">Подробнее о нас</a>
+					<div class="rk-kicker"><?php echo esc_html( rowkz_t( 'О компании' ) ); ?></div>
+					<h2><?php echo esc_html( rowkz_t( 'Добро пожаловать в Rowkz' ) ); ?></h2>
+					<p class="rk-lead"><?php echo esc_html( rowkz_t( 'Мы — официальный дистрибьютор Swift, производителя лодок для академической гребли с 2005 года. Продукция Swift представлена более чем в 50 странах.' ) ); ?></p>
+					<p class="rk-muted"><?php echo esc_html( rowkz_t( 'Предлагаем полный ассортимент: лодки и вёсла, тренажеры, аксессуары, системы хранения и оснащение для гребных клубов и спортивных школ. Наша цель — сделать греблю доступной и комфортной.' ) ); ?></p>
+					<a class="btn btn-primary btn-lg mt-2" href="<?php echo esc_url( rowkz_page_url( 'template-about.php' ) ); ?>"><?php echo esc_html( rowkz_t( 'Подробнее о нас' ) ); ?></a>
 				</div>
 			</div>
 		</div>
@@ -126,8 +127,8 @@ $latest = new WP_Query(
 					<div class="col-sm-6 col-lg-3">
 						<div class="rk-perk">
 							<i class="bi <?php echo esc_attr( $p[0] ); ?>"></i>
-							<h3><?php echo esc_html( $p[1] ); ?></h3>
-							<p><?php echo esc_html( $p[2] ); ?></p>
+							<h3><?php echo esc_html( rowkz_t( $p[1] ) ); ?></h3>
+							<p><?php echo esc_html( rowkz_t( $p[2] ) ); ?></p>
 						</div>
 					</div>
 				<?php endforeach; ?>
@@ -138,7 +139,7 @@ $latest = new WP_Query(
 	<section class="rk-section rk-section--tight">
 		<div class="container">
 			<div class="rk-logos">
-				<img src="https://swiftracing.com/wp-content/uploads/2025/05/logos-hrz-30May2025.png" alt="Партнёры Swift" loading="lazy" width="876" height="357">
+				<img src="https://swiftracing.com/wp-content/uploads/2025/05/logos-hrz-30May2025.png" alt="<?php echo esc_attr( rowkz_t( 'Партнёры Swift' ) ); ?>" loading="lazy" width="876" height="357">
 			</div>
 		</div>
 	</section>
@@ -147,10 +148,10 @@ $latest = new WP_Query(
 		<div class="container">
 			<div class="rk-cta">
 				<div>
-					<h2>Нужна помощь с выбором?</h2>
-					<p>Расскажите о задачах клуба или спортсмена — подготовим предложение с ценой и сроками.</p>
+					<h2><?php echo esc_html( rowkz_t( 'Нужна помощь с выбором?' ) ); ?></h2>
+					<p><?php echo esc_html( rowkz_t( 'Расскажите о задачах клуба или спортсмена — подготовим предложение с ценой и сроками.' ) ); ?></p>
 				</div>
-				<a class="btn btn-light btn-lg" href="<?php echo esc_url( rowkz_page_url( 'template-contact.php' ) ); ?>">Оставить заявку</a>
+				<a class="btn btn-light btn-lg" href="<?php echo esc_url( rowkz_page_url( 'template-contact.php' ) ); ?>"><?php echo esc_html( rowkz_t( 'Оставить заявку' ) ); ?></a>
 			</div>
 		</div>
 	</section>

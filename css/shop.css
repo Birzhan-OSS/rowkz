@@ -289,3 +289,45 @@ h1, h2, h3, h4 { color: var(--rk-ink); letter-spacing: -.01em; }
 	.rk-cart .cart-item-details { flex-basis: calc(100% - 90px); }
 	.rk-cart .cart-item-quantity { margin-left: 86px; }
 }
+
+/* ================= Конструкция и материалы ================= */
+.rk-grade--cpro { --g: #0f2233; }
+.rk-grade--ec { --g: #1d6f93; }
+.rk-grade--ep { --g: #3f8fb3; }
+.rk-grade--ca { --g: #6aa9c4; }
+.rk-grade--cb { --g: #a9c9d8; }
+.rk-grades { background: var(--rk-white); border: 1px solid var(--rk-line); border-radius: var(--rk-radius-lg); box-shadow: var(--rk-shadow); padding: 14px; }
+.rk-grades__tabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
+.rk-grades__tab { display: flex; align-items: center; gap: 10px; text-align: left; border: 1px solid var(--rk-line); background: var(--rk-white); color: var(--rk-ink); border-radius: var(--rk-radius); padding: 12px 14px; transition: border-color .2s, background-color .2s; }
+.rk-grades__tab:hover { border-color: var(--rk-ink); }
+.rk-grades__tab.is-active { background: var(--rk-sand); border-color: var(--rk-ink); }
+.rk-grades__tab strong { display: block; font-size: .95rem; }
+.rk-grades__tab small { display: block; color: var(--rk-ink-soft); font-size: .75rem; }
+.rk-grades__dot { flex: 0 0 auto; width: 14px; height: 14px; border-radius: 50%; background: var(--g); box-shadow: 0 0 0 3px rgba(15, 34, 51, .06); }
+.rk-grades__panel { padding: 8px; }
+.rk-grades__head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px 32px; flex-wrap: wrap; padding: 22px 24px; border-radius: var(--rk-radius); margin-bottom: 14px; background: linear-gradient(120deg, var(--rk-sand) 0%, var(--rk-white) 100%); border-left: 6px solid var(--g); }
+.rk-grades__head h3 { font-size: 1.8rem; font-weight: 700; margin: 2px 0 0; }
+.rk-grades__head p { margin: 0; max-width: 520px; color: var(--rk-ink-soft); }
+.rk-grades__head p span { color: var(--rk-ink); font-weight: 600; }
+.rk-grades__tag { font-size: .72rem; text-transform: uppercase; letter-spacing: .12em; font-weight: 600; color: var(--rk-accent); }
+.rk-spec { height: 100%; padding: 20px 22px; border-radius: var(--rk-radius); background: var(--rk-sand); }
+.rk-spec--white { background: var(--rk-white); border: 1px solid var(--rk-line); }
+.rk-spec h4 { font-size: .8rem; text-transform: uppercase; letter-spacing: .1em; color: var(--rk-accent); margin-bottom: 10px; }
+.rk-spec ul { list-style: none; padding: 0; margin: 0; }
+.rk-spec li { position: relative; padding: 6px 0 6px 18px; line-height: 1.45; font-size: .93rem; border-bottom: 1px solid rgba(15, 34, 51, .07); }
+.rk-spec li:last-child { border-bottom: 0; }
+.rk-spec li::before { content: ""; position: absolute; left: 0; top: 13px; width: 7px; height: 7px; border-radius: 50%; background: var(--rk-accent); }
+.rk-sandwich { display: flex; flex-direction: column; gap: 4px; margin-bottom: 20px; }
+.rk-sandwich__skin { height: 10px; border-radius: 6px; background: repeating-linear-gradient(45deg, #0f2233 0 6px, #22415c 6px 12px); }
+.rk-sandwich__core { height: 46px; border-radius: 6px; background-color: #e9dfc9; background-image: radial-gradient(circle at 10px 10px, transparent 6px, #c9b88f 6px 7.5px, transparent 7.5px); background-size: 20px 17px; }
+@media (max-width: 991.98px) {
+	.rk-grades__tabs { display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+	.rk-grades__tab { flex: 0 0 auto; }
+}
+
+/* ================= Переключатель языков ================= */
+.rk-lang { display: inline-flex; align-items: center; gap: 2px; padding: 3px; border-radius: var(--rk-radius-sm); background: var(--rk-sand); }
+.rk-lang a { display: inline-flex; align-items: center; justify-content: center; min-width: 34px; height: 30px; padding: 0 8px; border-radius: var(--rk-radius-sm); font-size: .78rem; font-weight: 700; letter-spacing: .04em; color: var(--rk-ink-soft); text-decoration: none; }
+.rk-lang a:hover { color: var(--rk-ink); }
+.rk-lang a[aria-current="true"] { background: var(--rk-white); color: var(--rk-ink); box-shadow: 0 1px 3px rgba(15, 34, 51, .12); }
+@media (max-width: 420px) { .rk-lang a { min-width: 28px; padding: 0 5px; } }

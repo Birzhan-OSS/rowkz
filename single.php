@@ -21,8 +21,8 @@ while ( have_posts() ) :
 <main id="primary" class="site-main">
 	<section class="rk-product">
 		<div class="container">
-			<nav class="rk-crumbs" aria-label="Навигация">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">Главная</a>
+			<nav class="rk-crumbs" aria-label="<?php echo esc_attr( rowkz_t( 'Навигация' ) ); ?>">
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html( rowkz_t( 'Главная' ) ); ?></a>
 				<?php if ( $top ) : ?> / <a href="<?php echo esc_url( get_category_link( $top ) ); ?>"><?php echo esc_html( $top->name ); ?></a><?php endif; ?>
 				<?php if ( $primary ) : ?> / <a href="<?php echo esc_url( get_category_link( $primary ) ); ?>"><?php echo esc_html( $primary->name ); ?></a><?php endif; ?>
 				/ <span><?php echo esc_html( $title ); ?></span>
@@ -45,27 +45,27 @@ while ( have_posts() ) :
 						<div class="rk-tags">
 							<?php foreach ( array( $brands, $mats ) as $terms ) : ?>
 								<?php if ( $terms && ! is_wp_error( $terms ) ) : foreach ( $terms as $t ) : ?>
-									<span class="rk-tag"><?php echo esc_html( $t->name ); ?></span>
+									<span class="rk-tag"><?php echo esc_html( rowkz_t( $t->name ) ); ?></span>
 								<?php endforeach; endif; ?>
 							<?php endforeach; ?>
 						</div>
 
-						<div class="rk-price">Цена по запросу<small>Рассчитаем стоимость с доставкой по Казахстану</small></div>
+						<div class="rk-price"><?php echo esc_html( rowkz_t( 'Цена по запросу' ) ); ?><small><?php echo esc_html( rowkz_t( 'Рассчитаем стоимость с доставкой по Казахстану' ) ); ?></small></div>
 
 						<div class="d-grid gap-2">
 							<button type="button" class="btn btn-primary btn-lg"
 								onclick="<?php echo esc_attr( sprintf( 'addToCart(%d, %s, 0, %s)', $id, wp_json_encode( $title ), wp_json_encode( (string) $thumb ) ) ); ?>">
-								<i class="bi bi-bag-plus me-2"></i>Добавить в заявку
+								<i class="bi bi-bag-plus me-2"></i><?php echo esc_html( rowkz_t( 'Добавить в заявку' ) ); ?>
 							</button>
-							<a class="btn btn-outline-primary btn-lg" href="<?php echo esc_url( home_url( '/?page_id=12' ) ); ?>">
-								<i class="bi bi-chat-dots me-2"></i>Задать вопрос
+							<a class="btn btn-outline-primary btn-lg" href="<?php echo esc_url( rowkz_page_url( 'template-contact.php' ) ); ?>">
+								<i class="bi bi-chat-dots me-2"></i><?php echo esc_html( rowkz_t( 'Задать вопрос' ) ); ?>
 							</a>
 						</div>
 
 						<ul class="rk-perks">
-							<li><i class="bi bi-patch-check"></i> Официальные поставки</li>
-							<li><i class="bi bi-rulers"></i> Подбор модели под гребца и задачу</li>
-							<li><i class="bi bi-tools"></i> Сервис и запчасти</li>
+							<li><i class="bi bi-patch-check"></i> <?php echo esc_html( rowkz_t( 'Официальные поставки' ) ); ?></li>
+							<li><i class="bi bi-rulers"></i> <?php echo esc_html( rowkz_t( 'Подбор модели под гребца и задачу' ) ); ?></li>
+							<li><i class="bi bi-tools"></i> <?php echo esc_html( rowkz_t( 'Сервис и запчасти' ) ); ?></li>
 						</ul>
 					</aside>
 				</div>
@@ -85,13 +85,14 @@ while ( have_posts() ) :
 						'posts_per_page'      => 3,
 						'post__not_in'        => array( $id ),
 						'cat'                 => $top ? $top->term_id : $primary->term_id,
+						'lang'                => rowkz_lang(),
 						'ignore_sticky_posts' => true,
 					)
 				);
 				if ( $related->have_posts() ) :
 					?>
 					<section class="rk-related">
-						<h2>Смотрите также</h2>
+						<h2><?php echo esc_html( rowkz_t( 'Смотрите также' ) ); ?></h2>
 						<div class="row rk-grid">
 							<?php
 							while ( $related->have_posts() ) :
