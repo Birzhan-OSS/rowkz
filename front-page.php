@@ -10,10 +10,11 @@ get_header();
 $img = get_template_directory_uri() . '/img/';
 
 $sections = array(
-	array( 'Лодки', 'Гоночные, тренировочные, прибрежные и детские', 'template-lodki.php', 'racing-boats' ),
-	array( 'Вёсла', 'Парные вёсла и вёсла для кадетов', 'template-vesla copy.php', 'vesla' ),
-	array( 'Тренажеры', 'Вся линейка Concept2', 'template-trenajery.php', 'trenazhery' ),
-	array( 'Аксессуары', 'SpeedCoach, стеллажи и хранение', 'template-accessuary.php', 'aksessuary' ),
+	// Название, подпись, шаблон страницы, рубрика, товар с фото для плитки.
+	array( 'Лодки', 'Гоночные, тренировочные, прибрежные и детские', 'template-lodki.php', 'lodki', 'para-rowing-1x' ),
+	array( 'Вёсла', 'Парные вёсла и вёсла для кадетов', 'template-vesla copy.php', 'vesla', 'regular-oars' ),
+	array( 'Тренажеры', 'Вся линейка Concept2', 'template-trenajery.php', 'trenazhery', 'concept2.com/ergs/rowerg' ),
+	array( 'Аксессуары', 'SpeedCoach, стеллажи и хранение', 'template-accessuary.php', 'aksessuary', 'adjustable-boat-rack' ),
 );
 
 $latest = new WP_Query(
@@ -53,8 +54,8 @@ $latest = new WP_Query(
 			</div>
 			<div class="row rk-grid">
 				<?php foreach ( $sections as $s ) :
-					list( $name, $desc, $tpl, $slug ) = $s;
-					$cover = rowkz_category_cover( $slug );
+					list( $name, $desc, $tpl, $slug, $prefer ) = $s;
+					$cover = rowkz_category_cover( $slug, $prefer );
 					?>
 					<div class="col-sm-6 col-lg-3">
 						<a class="rk-tile" href="<?php echo esc_url( rowkz_page_url( $tpl ) ); ?>">

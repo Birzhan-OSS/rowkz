@@ -190,8 +190,8 @@ h1, h2, h3, h4 { color: var(--rk-ink); letter-spacing: -.01em; }
 
 .rk-tile { display: flex; flex-direction: column; height: 100%; background: var(--rk-white); border: 1px solid var(--rk-line); border-radius: var(--rk-radius-lg); overflow: hidden; text-decoration: none; color: var(--rk-ink); box-shadow: var(--rk-shadow); transition: box-shadow .25s, transform .25s; }
 .rk-tile:hover { box-shadow: var(--rk-shadow-hover); transform: translateY(-3px); color: var(--rk-ink); }
-.rk-tile__media { aspect-ratio: 4 / 3; background: linear-gradient(180deg, #fbfaf7 0%, var(--rk-sand) 100%); padding: 18px; display: flex; align-items: center; justify-content: center; }
-.rk-tile__media img { width: 100%; height: 100%; object-fit: contain; transition: transform .4s; }
+.rk-tile__media { display: block; aspect-ratio: 4 / 3; background: var(--rk-sand); overflow: hidden; }
+.rk-tile__media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform .5s ease; }
 .rk-tile:hover .rk-tile__media img { transform: scale(1.05); }
 .rk-tile__body { padding: 18px 22px 22px; display: flex; flex-direction: column; gap: 4px; }
 .rk-tile__title { font-weight: 700; font-size: 1.2rem; display: flex; justify-content: space-between; align-items: center; }

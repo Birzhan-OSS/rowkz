@@ -51,14 +51,23 @@ function rowkz_page_url( $template ) {
 }
 
 /**
- * Последний товар рубрики с картинкой — для плиток разделов на главной.
+ * Картинка для плитки раздела на главной.
+ * $prefer — фрагмент адреса исходной страницы товара (мета _rowkz_source_url), чьё фото лучше смотрится в плитке.
+ * Если такого товара нет — берётся последний товар раздела с фото.
  */
-function rowkz_category_cover( $slug ) {
+function rowkz_category_cover( $slug, $prefer = '' ) {
 	$cat = get_category_by_slug( $slug );
 	if ( ! $cat ) {
 		return '';
 	}
-	$posts = get_posts( array( 'cat' => $cat->term_id, 'numberposts' => 1, 'meta_key' => '_thumbnail_id', 'fields' => 'ids' ) );
+	$args = array( 'cat' => $cat->term_id, 'numberposts' => 1, 'fields' => 'ids', 'meta_query' => array( array( 'key' => '_thumbnail_id', 'compare' => 'EXISTS' ) ) );
+	if ( $prefer ) {
+		$pref = get_posts( array_merge( $args, array( 'meta_query' => array( 'relation' => 'AND', array( 'key' => '_thumbnail_id', 'compare' => 'EXISTS' ), array( 'key' => '_rowkz_source_url', 'value' => $prefer, 'compare' => 'LIKE' ) ) ) ) );
+		if ( $pref ) {
+			return (string) get_the_post_thumbnail_url( $pref[0], 'large' );
+		}
+	}
+	$posts = get_posts( $args );
 	return $posts ? (string) get_the_post_thumbnail_url( $posts[0], 'large' ) : '';
 }
 
