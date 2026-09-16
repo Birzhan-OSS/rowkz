@@ -1,163 +1,165 @@
 <?php
 /**
- * The template for displaying all pages
- *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site may use a
- * different template.
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ * Главная страница.
  *
  * @package rowkz
  */
 
 get_header();
-?>
 
-	<main id="primary" class="site-main">
-<section class="section-1">
-		<!-- carussel -->
-		 <div class="container">
-			<div class="row">
-				<div class="col-md-12">
-						<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-						<div class="carousel-inner">
-							<div class="carousel-item active" data-bs-interval="10000">
-							<picture>
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a52000_561.png" media="(min-width: 1400px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a52000_561.png" media="(min-width: 768px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a52000_561.png" media="(min-width: 576px)">
-								<img src="<?php echo get_template_directory_uri();?>/img/a52000_561.png" class="d-block w-100 img-fluid" alt="...">
-							</picture>
-							</div>
-							<div class="carousel-item" data-bs-interval="2000">
-							<picture>
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a42000_561.png" media="(min-width: 1400px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a42000_561.png" media="(min-width: 768px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a42000_561.png" media="(min-width: 576px)">
-								<img src="<?php echo get_template_directory_uri();?>/img/a42000_561.png" class="d-block w-100 img-fluid" alt="...">
-							</picture>
-							</div>
-							<div class="carousel-item">
-							<picture>
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a32000_561.png" media="(min-width: 1400px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a32000_561.png" media="(min-width: 768px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a32000_561.png" media="(min-width: 576px)">
-								<img src="<?php echo get_template_directory_uri();?>/img/a32000_561.png" class="d-block w-100 img-fluid" alt="...">
-							</picture>
-							</div>
-							<div class="carousel-item">
-							<picture>
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a22000_561.png" media="(min-width: 1400px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a22000_561.png" media="(min-width: 768px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a22000_561.png" media="(min-width: 576px)">
-								<img src="<?php echo get_template_directory_uri();?>/img/a22000_561.png" class="d-block w-100 img-fluid" alt="...">
-							</picture>
-							</div>
-							<div class="carousel-item">
-							<picture>
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a12000_561.png" media="(min-width: 1400px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a12000_561.png" media="(min-width: 768px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a12000_561.png" media="(min-width: 576px)">
-								<img src="<?php echo get_template_directory_uri();?>/img/a12000_561.png" class="d-block w-100 img-fluid" alt="...">
-							</picture>
-							</div>
-						</div>
-						<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Previous</span>
-						</button>
-						<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Next</span>
-						</button>
-						</div>
+$img = get_template_directory_uri() . '/img/';
+
+$sections = array(
+	array( 'Лодки', 'Гоночные, тренировочные, прибрежные и детские', 'template-lodki.php', 'racing-boats' ),
+	array( 'Вёсла', 'Парные вёсла и вёсла для кадетов', 'template-vesla copy.php', 'vesla' ),
+	array( 'Тренажеры', 'Вся линейка Concept2', 'template-trenajery.php', 'trenazhery' ),
+	array( 'Аксессуары', 'SpeedCoach, стеллажи и хранение', 'template-accessuary.php', 'aksessuary' ),
+);
+
+$latest = new WP_Query(
+	array(
+		'post_type'           => 'post',
+		'posts_per_page'      => 6,
+		'ignore_sticky_posts' => true,
+		'meta_key'            => '_thumbnail_id',
+	)
+);
+?>
+<main id="primary" class="site-main">
+
+	<section class="rk-home-hero">
+		<div id="rkHeroCarousel" class="carousel slide carousel-fade rk-home-hero__slides" data-bs-ride="carousel" data-bs-interval="6000" aria-hidden="true">
+			<div class="carousel-inner">
+				<?php foreach ( array( 'a5', 'a4', 'a3', 'a2', 'a1' ) as $i => $name ) : ?>
+					<div class="carousel-item<?php echo 0 === $i ? ' active' : ''; ?>">
+						<img src="<?php echo esc_url( $img . $name . '2000_561.png' ); ?>" alt="" <?php echo 0 === $i ? 'fetchpriority="high"' : 'loading="lazy"'; ?>>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+		<div class="rk-home-hero__shade"></div>
+		<div class="container rk-home-hero__content">
+			<div class="rk-eyebrow">Официальный дистрибьютор Swift · Казахстан</div>
+			<h1>Лодки, вёсла и тренажеры для академической гребли</h1>
+			<p>Оснащаем спортсменов, клубы и спортивные школы: подбор модели, поставка и сервис.</p>
+			<div class="rk-home-hero__cta">
+				<a class="btn btn-light btn-lg" href="<?php echo esc_url( rowkz_page_url( 'template-lodki.php' ) ); ?>">Смотреть каталог</a>
+				<a class="btn btn-outline-light btn-lg" href="<?php echo esc_url( rowkz_page_url( 'template-contact.php' ) ); ?>">Получить консультацию</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="rk-section">
+		<div class="container">
+			<div class="rk-section__head">
+				<div>
+					<div class="rk-kicker">Каталог</div>
+					<h2>Разделы</h2>
 				</div>
 			</div>
-		 </div>
-			
-
+			<div class="row rk-grid">
+				<?php foreach ( $sections as $s ) :
+					list( $name, $desc, $tpl, $slug ) = $s;
+					$cover = rowkz_category_cover( $slug );
+					?>
+					<div class="col-sm-6 col-lg-3">
+						<a class="rk-tile" href="<?php echo esc_url( rowkz_page_url( $tpl ) ); ?>">
+							<span class="rk-tile__media"><?php if ( $cover ) : ?><img src="<?php echo esc_url( $cover ); ?>" alt="" loading="lazy"><?php endif; ?></span>
+							<span class="rk-tile__body">
+								<span class="rk-tile__title"><?php echo esc_html( $name ); ?> <i class="bi bi-arrow-right"></i></span>
+								<span class="rk-tile__text"><?php echo esc_html( $desc ); ?></span>
+							</span>
+						</a>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
 	</section>
-	<section class="section-2">
-		<div class="container pb-5	pt-5">
-			<div class="row">
-				<div class="col-md-12 text-left speech ">
-					<h2 class="section-2-h2" style="color:#207daf; font-weight:700;">Добро пожаловать в Rowkz!</h2>
-					<p class="section-2-p" >Мы являемся официальным дистрибьютором компании Swift, которая с 2005 года производит лодки для академической гребли, аксессуары, вёсла, системы хранения и инфраструктуру для гребных баз. Сегодня Swift — один из крупнейших производителей в мире, представленный более чем в 50 странах. <br/> Наша цель — сделать греблю доступной и комфортной. Мы предлагаем полный ассортимент продукции Swift: от лодок и вёсел до решений для обустройства гребных клубов и спортивных школ. <br/> Выбирая Rowkz, вы получаете проверенное качество, современные технологии и надёжного партнёра в мире академической гребли.</p>
+
+	<?php if ( $latest->have_posts() ) : ?>
+	<section class="rk-section rk-section--sand">
+		<div class="container">
+			<div class="rk-section__head">
+				<div>
+					<div class="rk-kicker">Ассортимент</div>
+					<h2>Популярные товары</h2>
+				</div>
+				<a class="btn btn-outline-primary" href="<?php echo esc_url( rowkz_page_url( 'template-lodki.php' ) ); ?>">Весь каталог</a>
+			</div>
+			<div class="row rk-grid">
+				<?php
+				while ( $latest->have_posts() ) :
+					$latest->the_post();
+					rowkz_render_product_card();
+				endwhile;
+				wp_reset_postdata();
+				?>
+			</div>
+		</div>
+	</section>
+	<?php endif; ?>
+
+	<section class="rk-section">
+		<div class="container">
+			<div class="row g-5 align-items-center">
+				<div class="col-lg-6">
+					<div class="rk-photo"><img src="<?php echo esc_url( $img . '7.jpg' ); ?>" alt="Гребная лодка Swift" loading="lazy"></div>
+				</div>
+				<div class="col-lg-6">
+					<div class="rk-kicker">О компании</div>
+					<h2>Добро пожаловать в Rowkz</h2>
+					<p class="rk-lead">Мы — официальный дистрибьютор Swift, производителя лодок для академической гребли с 2005 года. Продукция Swift представлена более чем в 50 странах.</p>
+					<p class="rk-muted">Предлагаем полный ассортимент: лодки и вёсла, тренажеры, аксессуары, системы хранения и оснащение для гребных клубов и спортивных школ. Наша цель — сделать греблю доступной и комфортной.</p>
+					<a class="btn btn-primary btn-lg mt-2" href="<?php echo esc_url( rowkz_page_url( 'template-about.php' ) ); ?>">Подробнее о нас</a>
 				</div>
 			</div>
 		</div>
 	</section>
 
-<!-- Categories -<< -->
- <section class="section-3 bg-light py-5">
-    <div class="container">
-        <div class="row align-items-center mb-5">
-            <div class="col-lg-4 mb-4 mb-lg-0">
-                <img src="<?php echo get_template_directory_uri(); ?>/img/7.jpg" alt="Современная гребная лодка" class="img-fluid rounded shadow" style="object-fit:cover; width:100%; min-height:120px;">
-            </div>
-            <div class="col-lg-8">
-                <h2 class="mb-3" style="color:#207daf; font-weight:700;">Инновации в каждой детали</h2>
-                <p style="font-size:1.15rem; color:#394247;">
-                    Компания swiftracing — мировой лидер в производстве лодок для академической гребли. Мы предлагаем современные решения для спортсменов, тренеров и клубов: от лёгких и прочных корпусов до эргономичных вёсел и аксессуаров.
-                </p>
-                <ul class="list-unstyled mb-4" >
-                    <li><i class="bi bi-check-circle-fill me-2"></i>Премиальные материалы и технологии</li>
-                    <li><i class="bi bi-check-circle-fill me-2"></i>Гарантия качества и надёжности</li>
-                    <li><i class="bi bi-check-circle-fill me-2"></i>Поддержка и сервис по всей России</li>
-                </ul>
-                <!-- <a href="#" class="btn btn-primary px-4 py-2">Смотреть каталог</a> -->
-            </div>
-        </div>
-        <div class="row text-center">
-            <div class="col-md-4 mb-4">
-                <div class="p-4 bg-white rounded shadow-sm h-100">
-                    <i class="bi bi-tsunami" style="font-size: 3rem; color:#207daf; margin-bottom:16px;"></i>
-                    <h5 class="mb-2" >Лодки для гребли</h5>
-                    <p style="font-size:1rem; color:#394247;">Широкий выбор моделей для новичков и профессионалов. Индивидуальный подбор под ваши задачи.</p>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="p-4 bg-white rounded shadow-sm h-100">
-                    <i class="bi bi-life-preserver" style="font-size: 3rem; color:#207daf; margin-bottom:16px;"></i>
-                    <h5 class="mb-2" >Вёсла и аксессуары</h5>
-                    <p style="font-size:1rem; color:#394247;">Современные вёсла, аксессуары, тренажеры и всё необходимое для тренировок и соревнований.</p>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="p-4 bg-white rounded shadow-sm h-100">
-                    <i class="bi bi-headset" style="font-size: 3rem; color:#207daf; margin-bottom:16px;"></i>
-                    <h5 class="mb-2" >Сервис и поддержка</h5>
-                    <p style="font-size:1rem; color:#394247;">Консультации, гарантийное и постгарантийное обслуживание, помощь в выборе и эксплуатации.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
- <!-- New section with logos -->
-  <section id="block-13" class="widget widget_block widget_media_image py-5">
-    <div class="container text-center">
-        <figure class="wp-block-image size-full m-0">
-            <img 
-                decoding="async" 
-                width="876" 
-                height="357" 
-                src="https://swiftracing.com/wp-content/uploads/2025/05/logos-hrz-30May2025.png" 
-                alt="Логотипы партнеров" 
-                class="wp-image-8845 img-fluid"
-                srcset="https://swiftracing.com/wp-content/uploads/2025/05/logos-hrz-30May2025.png 876w, https://swiftracing.com/wp-content/uploads/2025/05/logos-hrz-30May2025-130x53.png 130w, https://swiftracing.com/wp-content/uploads/2025/05/logos-hrz-30May2025-768x313.png 768w" 
-                sizes="(max-width: 876px) 100vw, 876px"
-            >
-        </figure>
-    </div>
-</section>
- 
+	<section class="rk-section rk-section--tight">
+		<div class="container">
+			<div class="row rk-grid">
+				<?php
+				$perks = array(
+					array( 'bi-patch-check', 'Официальные поставки', 'Оригинальная продукция и гарантия производителя.' ),
+					array( 'bi-rulers', 'Подбор под гребца', 'Поможем выбрать корпус, вёсла и оснастку под вес и задачи.' ),
+					array( 'bi-truck', 'Доставка по Казахстану', 'Организуем доставку, в том числе крупногабаритных лодок.' ),
+					array( 'bi-tools', 'Сервис и запчасти', 'Консультации, ремонт и комплектующие после покупки.' ),
+				);
+				foreach ( $perks as $p ) :
+					?>
+					<div class="col-sm-6 col-lg-3">
+						<div class="rk-perk">
+							<i class="bi <?php echo esc_attr( $p[0] ); ?>"></i>
+							<h3><?php echo esc_html( $p[1] ); ?></h3>
+							<p><?php echo esc_html( $p[2] ); ?></p>
+						</div>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</section>
 
+	<section class="rk-section rk-section--tight">
+		<div class="container">
+			<div class="rk-logos">
+				<img src="https://swiftracing.com/wp-content/uploads/2025/05/logos-hrz-30May2025.png" alt="Партнёры Swift" loading="lazy" width="876" height="357">
+			</div>
+		</div>
+	</section>
 
-	</main>
-<!-- #main -->
+	<section class="rk-section">
+		<div class="container">
+			<div class="rk-cta">
+				<div>
+					<h2>Нужна помощь с выбором?</h2>
+					<p>Расскажите о задачах клуба или спортсмена — подготовим предложение с ценой и сроками.</p>
+				</div>
+				<a class="btn btn-light btn-lg" href="<?php echo esc_url( rowkz_page_url( 'template-contact.php' ) ); ?>">Оставить заявку</a>
+			</div>
+		</div>
+	</section>
 
+</main>
 <?php
-
 get_footer();

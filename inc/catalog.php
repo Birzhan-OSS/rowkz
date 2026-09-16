@@ -39,6 +39,30 @@ function rowkz_catalog_structure() {
 }
 
 /**
+ * Ссылка на страницу, которой назначен указанный шаблон (например, 'template-contact.php').
+ */
+function rowkz_page_url( $template ) {
+	static $cache = array();
+	if ( ! isset( $cache[ $template ] ) ) {
+		$pages              = get_pages( array( 'meta_key' => '_wp_page_template', 'meta_value' => $template, 'number' => 1, 'post_status' => 'publish' ) );
+		$cache[ $template ] = $pages ? get_permalink( $pages[0] ) : home_url( '/' );
+	}
+	return $cache[ $template ];
+}
+
+/**
+ * Последний товар рубрики с картинкой — для плиток разделов на главной.
+ */
+function rowkz_category_cover( $slug ) {
+	$cat = get_category_by_slug( $slug );
+	if ( ! $cat ) {
+		return '';
+	}
+	$posts = get_posts( array( 'cat' => $cat->term_id, 'numberposts' => 1, 'meta_key' => '_thumbnail_id', 'fields' => 'ids' ) );
+	return $posts ? (string) get_the_post_thumbnail_url( $posts[0], 'large' ) : '';
+}
+
+/**
  * Создаёт рубрику (и родителя) если её нет. Возвращает term_id.
  */
 function rowkz_ensure_category( $slug ) {
