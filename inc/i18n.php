@@ -52,16 +52,25 @@ function rowkz_tr_post( $id ) {
 	return (int) $id;
 }
 
+/**
+ * Рубрика по slug без фильтра языка Polylang (get_category_by_slug на английской
+ * странице не нашёл бы русскую рубрику).
+ */
+function rowkz_term_by_slug( $slug ) {
+	$terms = get_terms( array( 'taxonomy' => 'category', 'slug' => $slug, 'hide_empty' => false, 'number' => 1, 'lang' => '' ) );
+	return ( ! is_wp_error( $terms ) && $terms ) ? $terms[0] : null;
+}
+
 /** Рубрика по русскому slug, в версии текущего языка. */
 function rowkz_category( $slug ) {
-	$cat = get_category_by_slug( $slug );
+	$cat = rowkz_term_by_slug( $slug );
 	if ( ! $cat ) {
 		return null;
 	}
 	if ( function_exists( 'pll_get_term' ) ) {
 		$tr = pll_get_term( $cat->term_id, rowkz_lang() );
-		if ( $tr && $tr !== $cat->term_id ) {
-			$t = get_category( $tr );
+		if ( $tr && (int) $tr !== (int) $cat->term_id ) {
+			$t = get_term( $tr, 'category' );
 			return ( $t && ! is_wp_error( $t ) ) ? $t : $cat;
 		}
 	}
@@ -209,7 +218,7 @@ function rowkz_i18n_setup_languages() {
 /** Перевод рубрики: { slug (русский), lang, name } */
 function rowkz_i18n_term( WP_REST_Request $req ) {
 	$lang = sanitize_key( $req->get_param( 'lang' ) );
-	$src  = get_category_by_slug( sanitize_title( $req->get_param( 'slug' ) ) );
+	$src  = rowkz_term_by_slug( sanitize_title( $req->get_param( 'slug' ) ) );
 	$name = sanitize_text_field( $req->get_param( 'name' ) );
 	if ( ! $src || 'ru' === $lang || ! isset( ROWKZ_LANGS[ $lang ] ) || '' === $name ) {
 		return new WP_Error( 'rowkz_bad_term', 'Нет рубрики или языка', array( 'status' => 400 ) );

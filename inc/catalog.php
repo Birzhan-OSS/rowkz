@@ -81,7 +81,7 @@ function rowkz_category_cover( $slug, $prefer = '' ) {
  */
 function rowkz_ensure_category( $slug ) {
 	$structure = rowkz_catalog_structure();
-	$existing  = get_category_by_slug( $slug );
+	$existing  = function_exists( 'rowkz_term_by_slug' ) ? rowkz_term_by_slug( $slug ) : get_category_by_slug( $slug );
 	if ( $existing ) {
 		return (int) $existing->term_id;
 	}
