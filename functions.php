@@ -142,6 +142,7 @@ function rowkz_scripts() {
 	wp_enqueue_style( 'rowkz-main', get_template_directory_uri() . '/css/main.css');
 	wp_enqueue_style( 'rowkz-apple-theme', get_template_directory_uri() . '/css/apple-theme.css');
 	wp_enqueue_style( 'rowkz-cart', get_template_directory_uri() . '/css/cart.css');
+	wp_enqueue_style( 'rowkz-shop', get_template_directory_uri() . '/css/shop.css', array( 'rowkz-main', 'rowkz-cart' ), filemtime( get_template_directory() . '/css/shop.css' ) );
 	wp_enqueue_style( 'bootstrap_icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css');
 	//owl 
 	wp_enqueue_style( 'owl-style', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css');

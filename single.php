@@ -1,96 +1,115 @@
 <?php
 /**
- * The template for displaying all single posts
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
+ * Страница товара (одиночная запись).
  *
  * @package rowkz
  */
 
 get_header();
-?>
 
+while ( have_posts() ) :
+	the_post();
+	$id      = get_the_ID();
+	$title   = get_the_title();
+	$cats    = get_the_category( $id );
+	$brands  = get_the_terms( $id, 'proizvoditel' );
+	$mats    = get_the_terms( $id, 'material' );
+	$thumb   = get_the_post_thumbnail_url( $id, 'thumbnail' );
+	$primary = $cats ? $cats[0] : null;
+	$top     = $primary && $primary->parent ? get_category( $primary->parent ) : null;
+	?>
 <main id="primary" class="site-main">
-    <!-- Post Header Section -->
-    <section class="post-header bg-light py-5 text-center position-relative" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
-        <div class="container">
-            <h1 class="display-4 fw-bold mb-3 animate__animated animate__fadeIn"><?php the_title(); ?></h1>
-            <div class="post-meta text-muted mb-4 animate__animated animate__fadeIn" style="animation-delay: 0.2s;">
-                <span><i class="bi bi-person-fill me-2"></i><?php the_author(); ?></span> | 
-                <span><i class="bi bi-calendar-fill me-2"></i><?php echo get_the_date(); ?></span> | 
-                <span><i class="bi bi-tag-fill me-2"></i><?php the_category(', '); ?></span>
-            </div>
-        </div>
-        <div class="hero-overlay position-absolute bottom-0 start-0 w-100" style="height: 50px; background: linear-gradient(to top, rgba(255,255,255,1), transparent);"></div>
-    </section>
+	<section class="rk-product">
+		<div class="container">
+			<nav class="rk-crumbs" aria-label="Навигация">
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">Главная</a>
+				<?php if ( $top ) : ?> / <a href="<?php echo esc_url( get_category_link( $top ) ); ?>"><?php echo esc_html( $top->name ); ?></a><?php endif; ?>
+				<?php if ( $primary ) : ?> / <a href="<?php echo esc_url( get_category_link( $primary ) ); ?>"><?php echo esc_html( $primary->name ); ?></a><?php endif; ?>
+				/ <span><?php echo esc_html( $title ); ?></span>
+			</nav>
 
-    <!-- Post Content Section -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <?php
-                    while ( have_posts() ) :
-                        the_post();
-                        ?>
-                        <article id="post-<?php the_ID(); ?>" <?php post_class('animate__animated animate__fadeInUp'); ?>>
-                            <?php if ( has_post_thumbnail() ) : ?>
-                                <div class="post-thumbnail mb-4">
-                                    <img src="<?php the_post_thumbnail_url('full'); ?>" alt="<?php the_title_attribute(); ?>" class="img-fluid rounded shadow-sm">
-                                </div>
-                            <?php endif; ?>
-                            
-                            <div class="post-content">
-                                <?php
-                                the_content();
-                                
-                                wp_link_pages( array(
-                                    'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'rowkz' ),
-                                    'after'  => '</div>',
-                                ) );
-                                ?>
-                            </div>
+			<div class="row g-4 align-items-start">
+				<div class="col-lg-7">
+					<div class="rk-gallery">
+						<?php if ( has_post_thumbnail() ) : ?>
+							<img src="<?php echo esc_url( get_the_post_thumbnail_url( $id, 'full' ) ); ?>" alt="<?php echo esc_attr( $title ); ?>">
+						<?php endif; ?>
+					</div>
+				</div>
+				<div class="col-lg-5">
+					<aside class="rk-buybox">
+						<?php if ( $primary ) : ?><div class="rk-card__cat"><?php echo esc_html( $primary->name ); ?></div><?php endif; ?>
+						<h1><?php echo esc_html( $title ); ?></h1>
+						<?php if ( has_excerpt() ) : ?><p class="rk-lead"><?php echo esc_html( get_the_excerpt() ); ?></p><?php endif; ?>
 
-                            <?php if ( has_tag() ) : ?>
-                                <div class="post-tags mt-4">
-                                    <i class="bi bi-tags-fill text-primary me-2"></i>
-                                    <?php the_tags( '<span class="badge bg-light text-dark">', '</span> <span class="badge bg-light text-dark">', '</span>' ); ?>
-                                </div>
-                            <?php endif; ?>
-                        </article>
+						<div class="rk-tags">
+							<?php foreach ( array( $brands, $mats ) as $terms ) : ?>
+								<?php if ( $terms && ! is_wp_error( $terms ) ) : foreach ( $terms as $t ) : ?>
+									<span class="rk-tag"><?php echo esc_html( $t->name ); ?></span>
+								<?php endforeach; endif; ?>
+							<?php endforeach; ?>
+						</div>
 
-                        <!-- Post Navigation -->
-                        <nav class="post-navigation mt-5 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
-                            <?php
-                            the_post_navigation(
-                                array(
-                                    'prev_text' => '<span class="nav-subtitle d-block text-muted">' . esc_html__( 'Previous:', 'rowkz' ) . '</span> <span class="nav-title h5 text-primary">%title</span>',
-                                    'next_text' => '<span class="nav-subtitle d-block text-muted">' . esc_html__( 'Next:', 'rowkz' ) . '</span> <span class="nav-title h5 text-primary">%title</span>',
-                                )
-                            );
-                            ?>
-                        </nav>
+						<div class="rk-price">Цена по запросу<small>Рассчитаем стоимость с доставкой по Казахстану</small></div>
 
-                        <!-- Comments Section -->
-                        <?php
-                        if ( comments_open() || get_comments_number() ) :
-                            ?>
-                            <div class="comments-section mt-5 animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
-                                <?php comments_template(); ?>
-                            </div>
-                            <?php
-                        endif;
-                    endwhile; // End of the loop.
-                    ?>
-                </div>
-            </div>
-        </div>
-    </section>
+						<div class="d-grid gap-2">
+							<button type="button" class="btn btn-primary btn-lg"
+								onclick="<?php echo esc_attr( sprintf( 'addToCart(%d, %s, 0, %s)', $id, wp_json_encode( $title ), wp_json_encode( (string) $thumb ) ) ); ?>">
+								<i class="bi bi-bag-plus me-2"></i>Добавить в заявку
+							</button>
+							<a class="btn btn-outline-primary btn-lg" href="<?php echo esc_url( home_url( '/?page_id=12' ) ); ?>">
+								<i class="bi bi-chat-dots me-2"></i>Задать вопрос
+							</a>
+						</div>
 
+						<ul class="rk-perks">
+							<li><i class="bi bi-patch-check"></i> Официальные поставки</li>
+							<li><i class="bi bi-rulers"></i> Подбор модели под гребца и задачу</li>
+							<li><i class="bi bi-tools"></i> Сервис и запчасти</li>
+						</ul>
+					</aside>
+				</div>
+			</div>
 
-</main><!-- #main -->
+			<?php if ( '' !== trim( get_the_content() ) ) : ?>
+				<div class="rk-content">
+					<?php the_content(); ?>
+				</div>
+			<?php endif; ?>
 
-<?php
-// get_sidebar();
+			<?php
+			if ( $primary ) :
+				$related = new WP_Query(
+					array(
+						'post_type'           => 'post',
+						'posts_per_page'      => 3,
+						'post__not_in'        => array( $id ),
+						'cat'                 => $top ? $top->term_id : $primary->term_id,
+						'ignore_sticky_posts' => true,
+					)
+				);
+				if ( $related->have_posts() ) :
+					?>
+					<section class="rk-related">
+						<h2>Смотрите также</h2>
+						<div class="row rk-grid">
+							<?php
+							while ( $related->have_posts() ) :
+								$related->the_post();
+								rowkz_render_product_card();
+							endwhile;
+							wp_reset_postdata();
+							?>
+						</div>
+					</section>
+					<?php
+				endif;
+			endif;
+			?>
+		</div>
+	</section>
+</main>
+	<?php
+endwhile;
+
 get_footer();
-?>

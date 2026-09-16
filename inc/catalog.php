@@ -21,9 +21,11 @@ function rowkz_catalog_structure() {
 		'dlya-akademii'     => array( 'Для академии', 'lodki' ),
 		'pribrezhnye'       => array( 'Для прибрежной гребли', 'lodki' ),
 		'kayak'             => array( 'Каяк', 'lodki' ),
+		'para'              => array( 'PARA-гребля', 'lodki' ),
 		'vesla'             => array( 'Весла', '' ),
 		'parnye-vesla'      => array( 'Парные вёсла', 'vesla' ),
 		'raspashnye-vesla'  => array( 'Распашные вёсла', 'vesla' ),
+		'vesla-kadetskie'   => array( 'Вёсла для кадетов и PARA', 'vesla' ),
 		'trenazhery'        => array( 'Тренажеры', '' ),
 		'grebnye-trenazhery' => array( 'Гребные тренажеры', 'trenazhery' ),
 		'lyzhnye-trenazhery' => array( 'Лыжные тренажеры', 'trenazhery' ),
@@ -32,6 +34,7 @@ function rowkz_catalog_structure() {
 		'komplektuyushhie'  => array( 'Комплектующие', '' ),
 		'aksessuary'        => array( 'Аксессуары', '' ),
 		'elektronika'       => array( 'Электроника (SpeedCoach)', 'aksessuary' ),
+		'stellazhi'         => array( 'Стеллажи и хранение', 'aksessuary' ),
 	);
 }
 
@@ -60,29 +63,29 @@ function rowkz_render_product_card() {
 	$id    = get_the_ID();
 	$title = get_the_title();
 	$thumb = get_the_post_thumbnail_url( $id, 'thumbnail' );
+	$cats  = get_the_category( $id );
+	$cat   = $cats ? $cats[0]->name : '';
 	?>
-	<div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-		<div class="card h-100 shadow-sm animate-fade-in-up">
-			<?php if ( has_post_thumbnail() ) : ?>
-				<a href="<?php the_permalink(); ?>">
-					<img src="<?php echo esc_url( get_the_post_thumbnail_url( $id, 'medium' ) ); ?>" class="card-img-top" alt="<?php echo esc_attr( $title ); ?>" style="object-fit:contain;height:200px;background:#fff;">
-				</a>
-			<?php endif; ?>
-			<div class="card-body d-flex flex-column">
-				<h5 class="card-title"><?php echo esc_html( $title ); ?></h5>
-				<p class="card-text small text-muted"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 18 ) ); ?></p>
-				<div class="mt-auto">
-					<div class="d-flex justify-content-between align-items-center">
-						<span class="price-placeholder text-muted small">Цена по запросу</span>
-						<button type="button" class="btn btn-primary btn-sm"
-							onclick="<?php echo esc_attr( sprintf( 'addToCart(%d, %s, 0, %s)', $id, wp_json_encode( $title ), wp_json_encode( (string) $thumb ) ) ); ?>">
-							<i class="bi bi-cart-plus"></i> В корзину
-						</button>
-					</div>
-					<a href="<?php the_permalink(); ?>" class="btn btn-outline-primary btn-sm mt-2 w-100">Подробнее</a>
+	<div class="col-sm-6 col-lg-4">
+		<article class="rk-card">
+			<a class="rk-card__media" href="<?php the_permalink(); ?>" tabindex="-1" aria-hidden="true">
+				<?php if ( has_post_thumbnail() ) : ?>
+					<img src="<?php echo esc_url( get_the_post_thumbnail_url( $id, 'large' ) ); ?>" alt="<?php echo esc_attr( $title ); ?>" loading="lazy">
+				<?php endif; ?>
+			</a>
+			<div class="rk-card__body">
+				<?php if ( $cat ) : ?><div class="rk-card__cat"><?php echo esc_html( $cat ); ?></div><?php endif; ?>
+				<h3 class="rk-card__title"><a href="<?php the_permalink(); ?>"><?php echo esc_html( $title ); ?></a></h3>
+				<p class="rk-card__text"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 20 ) ); ?></p>
+				<div class="rk-card__foot">
+					<div class="rk-price">Цена по запросу<small>Доставка по Казахстану</small></div>
+					<button type="button" class="btn btn-primary btn-sm px-3"
+						onclick="<?php echo esc_attr( sprintf( 'addToCart(%d, %s, 0, %s)', $id, wp_json_encode( $title ), wp_json_encode( (string) $thumb ) ) ); ?>">
+						<i class="bi bi-bag-plus me-1"></i> В корзину
+					</button>
 				</div>
 			</div>
-		</div>
+		</article>
 	</div>
 	<?php
 }
@@ -93,7 +96,7 @@ function rowkz_filter_catalog() {
 	$args = array(
 		'post_type'      => 'post',
 		'post_status'    => 'publish',
-		'posts_per_page' => 24,
+		'posts_per_page' => 60,
 	);
 
 	if ( ! empty( $_POST['s'] ) ) {
@@ -136,7 +139,7 @@ function rowkz_filter_catalog() {
 		}
 		wp_reset_postdata();
 	} else {
-		echo '<div class="col-12 text-center text-muted"><p>Товары не найдены.</p></div>';
+		echo '<div class="col-12 rk-empty"><p>В этом разделе пока нет товаров. Напишите нам — подберём под ваш запрос.</p></div>';
 	}
 	wp_die();
 }
