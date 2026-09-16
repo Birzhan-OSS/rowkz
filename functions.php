@@ -86,10 +86,10 @@ function rowkz_setup() {
 	add_theme_support( 'customize-selective-refresh-widgets' );
 
 	/**
-	 * Add support for core custom logo.
-	 *
-	 * @link https://codex.wordpress.org/Theme_Logo
-	 */
+ * Add support for core custom logo.
+ *
+ * @link https://codex.wordpress.org/Theme_Logo
+ */
 	add_theme_support(
 		'custom-logo',
 		array(
@@ -140,8 +140,10 @@ add_action( 'widgets_init', 'rowkz_widgets_init' );
 function rowkz_scripts() {
 	wp_enqueue_style( 'rowkz-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_enqueue_style( 'rowkz-main', get_template_directory_uri() . '/css/main.css');
+	wp_enqueue_style( 'rowkz-apple-theme', get_template_directory_uri() . '/css/apple-theme.css');
+	wp_enqueue_style( 'rowkz-cart', get_template_directory_uri() . '/css/cart.css');
 	wp_enqueue_style( 'bootstrap_icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css');
-		//owl 
+	//owl 
 	wp_enqueue_style( 'owl-style', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css');
 	wp_enqueue_style( 'owl-style-t', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css');
 
@@ -158,7 +160,7 @@ function rowkz_scripts() {
 	wp_enqueue_script( 'bootstrap-script', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js' , array('jquery') );
 
 	wp_enqueue_script('custom-script', get_template_directory_uri() . '/js/custom-script.js', array('jquery'), null, true);
-	
+	wp_enqueue_script('cart-script', get_template_directory_uri() . '/js/cart.js', array('jquery'), null, true);
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -174,24 +176,58 @@ function rowkz_filter_catalog() {
         'post_type' => 'post',
         'posts_per_page' => 12,
     ];
+    
+    // Поиск по тексту
     if (!empty($_POST['s'])) {
         $args['s'] = sanitize_text_field($_POST['s']);
     }
-    if (!empty($_POST['cat'])) {
-        $args['cat'] = intval($_POST['cat']);
+    
+    // Фильтр по подрубрике лодок
+    if (!empty($_POST['lodki_subcat'])) {
+        $args['cat'] = intval($_POST['lodki_subcat']);
     }
+    
+    // Фильтр по производителю (таксономия)
+    if (!empty($_POST['proizvoditel'])) {
+        $args['tax_query'][] = [
+            'taxonomy' => 'proizvoditel',
+            'field' => 'slug',
+            'terms' => sanitize_text_field($_POST['proizvoditel']),
+        ];
+    }
+    
+    // Фильтр по материалу (таксономия)
+    if (!empty($_POST['material'])) {
+        $args['tax_query'][] = [
+            'taxonomy' => 'material',
+            'field' => 'slug',
+            'terms' => sanitize_text_field($_POST['material']),
+        ];
+    }
+    
+    // Если есть несколько таксономий, объединяем их через AND
+    if (isset($args['tax_query']) && count($args['tax_query']) > 1) {
+        $args['tax_query']['relation'] = 'AND';
+    }
+    
     $query = new WP_Query($args);
     if ($query->have_posts()):
         while ($query->have_posts()): $query->the_post(); ?>
             <div class="col-md-3 mb-4">
-                <div class="card h-100 shadow-sm">
+                <div class="card h-100 shadow-sm animate-fade-in-up">
                     <?php if (has_post_thumbnail()): ?>
                         <img src="<?php the_post_thumbnail_url('medium'); ?>" class="card-img-top" alt="<?php the_title(); ?>">
                     <?php endif; ?>
                     <div class="card-body">
                         <h5 class="card-title"><?php the_title(); ?></h5>
                         <p class="card-text"><?php echo wp_trim_words(get_the_excerpt(), 15); ?></p>
-                        <a href="<?php the_permalink(); ?>" class="btn btn-outline-primary btn-sm">Подробнее</a>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="price-placeholder text-muted small">Цена по запросу</span>
+                            <button class="btn btn-primary btn-sm" onclick="addToCart(<?php echo get_the_ID(); ?>, '<?php echo the_title(); ?>', 0, '<?php echo the_post_thumbnail_url('thumbnail'); ?>')">
+                                <i class="bi bi-cart-plus"></i> В корзину
+                            </button>
+                        </div>
+                        <a href="<?php the_permalink(); ?>" class="btn btn-outline-primary btn-sm mt-2 w-100">Подробнее</a>
                     </div>
                 </div>
             </div>
@@ -202,6 +238,26 @@ function rowkz_filter_catalog() {
     endif;
     wp_die();
 }
+
+
+function register_custom_taxonomies() {
+    register_taxonomy('proizvoditel', 'post', [
+        'label' => 'Производитель',
+        'rewrite' => ['slug' => 'proizvoditel'],
+        'hierarchical' => true, // true — как рубрики, false — как метки
+        'show_admin_column' => true,
+        'show_in_rest' => true,
+    ]);
+    // Добавьте другие таксономии по аналогии:
+    register_taxonomy('material', 'post', [
+        'label' => 'Материал',
+        'rewrite' => ['slug' => 'material'],
+        'hierarchical' => true,
+        'show_admin_column' => true,
+        'show_in_rest' => true,
+    ]);
+}
+add_action('init', 'register_custom_taxonomies');
 
 /**
  * custom fonts
@@ -242,3 +298,4 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+?>

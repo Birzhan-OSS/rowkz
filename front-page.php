@@ -26,41 +26,41 @@ get_header();
 							<div class="carousel-item active" data-bs-interval="10000">
 							<picture>
 								<source srcset="<?php echo get_template_directory_uri();?>/img/a52000_561.png" media="(min-width: 1400px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a51400_561.png" media="(min-width: 768px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a5800_561.png" media="(min-width: 576px)">
-								<img src="<?php echo get_template_directory_uri();?>/img/a5600_561.png" class="d-block w-100 img-fluid" alt="...">
+								<source srcset="<?php echo get_template_directory_uri();?>/img/a52000_561.png" media="(min-width: 768px)">
+								<source srcset="<?php echo get_template_directory_uri();?>/img/a52000_561.png" media="(min-width: 576px)">
+								<img src="<?php echo get_template_directory_uri();?>/img/a52000_561.png" class="d-block w-100 img-fluid" alt="...">
 							</picture>
 							</div>
 							<div class="carousel-item" data-bs-interval="2000">
 							<picture>
 								<source srcset="<?php echo get_template_directory_uri();?>/img/a42000_561.png" media="(min-width: 1400px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a41400_561.png" media="(min-width: 768px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a4800_561.png" media="(min-width: 576px)">
-								<img src="<?php echo get_template_directory_uri();?>/img/a4600_561.png" class="d-block w-100 img-fluid" alt="...">
+								<source srcset="<?php echo get_template_directory_uri();?>/img/a42000_561.png" media="(min-width: 768px)">
+								<source srcset="<?php echo get_template_directory_uri();?>/img/a42000_561.png" media="(min-width: 576px)">
+								<img src="<?php echo get_template_directory_uri();?>/img/a42000_561.png" class="d-block w-100 img-fluid" alt="...">
 							</picture>
 							</div>
 							<div class="carousel-item">
 							<picture>
 								<source srcset="<?php echo get_template_directory_uri();?>/img/a32000_561.png" media="(min-width: 1400px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a31400_561.png" media="(min-width: 768px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a3800_561.png" media="(min-width: 576px)">
-								<img src="<?php echo get_template_directory_uri();?>/img/a3600_561.png" class="d-block w-100 img-fluid" alt="...">
+								<source srcset="<?php echo get_template_directory_uri();?>/img/a32000_561.png" media="(min-width: 768px)">
+								<source srcset="<?php echo get_template_directory_uri();?>/img/a32000_561.png" media="(min-width: 576px)">
+								<img src="<?php echo get_template_directory_uri();?>/img/a32000_561.png" class="d-block w-100 img-fluid" alt="...">
 							</picture>
 							</div>
 							<div class="carousel-item">
 							<picture>
 								<source srcset="<?php echo get_template_directory_uri();?>/img/a22000_561.png" media="(min-width: 1400px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a21400_561.png" media="(min-width: 768px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a2800_561.png" media="(min-width: 576px)">
-								<img src="<?php echo get_template_directory_uri();?>/img/a2600_561.png" class="d-block w-100 img-fluid" alt="...">
+								<source srcset="<?php echo get_template_directory_uri();?>/img/a22000_561.png" media="(min-width: 768px)">
+								<source srcset="<?php echo get_template_directory_uri();?>/img/a22000_561.png" media="(min-width: 576px)">
+								<img src="<?php echo get_template_directory_uri();?>/img/a22000_561.png" class="d-block w-100 img-fluid" alt="...">
 							</picture>
 							</div>
 							<div class="carousel-item">
 							<picture>
 								<source srcset="<?php echo get_template_directory_uri();?>/img/a12000_561.png" media="(min-width: 1400px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a11400_561.png" media="(min-width: 768px)">
-								<source srcset="<?php echo get_template_directory_uri();?>/img/a1800_561.png" media="(min-width: 576px)">
-								<img src="<?php echo get_template_directory_uri();?>/img/a1600_561.png" class="d-block w-100 img-fluid" alt="...">
+								<source srcset="<?php echo get_template_directory_uri();?>/img/a12000_561.png" media="(min-width: 768px)">
+								<source srcset="<?php echo get_template_directory_uri();?>/img/a12000_561.png" media="(min-width: 576px)">
+								<img src="<?php echo get_template_directory_uri();?>/img/a12000_561.png" class="d-block w-100 img-fluid" alt="...">
 							</picture>
 							</div>
 						</div>
@@ -82,109 +82,59 @@ get_header();
 	<section class="section-2">
 		<div class="container pb-5	pt-5">
 			<div class="row">
-				<div class="col-md-12 text-left">
-					<h2 class="section-2-h2">Добро пожаловать в Rowkz!</h2>
-					<p class="section-2-p">Мы являемся официальным дистрибьютором компании Swift, которая с 2005 года производит лодки для академической гребли, аксессуары, вёсла, системы хранения и инфраструктуру для гребных баз. Сегодня Swift — один из крупнейших производителей в мире, представленный более чем в 50 странах. <br/> Наша цель — сделать греблю доступной и комфортной. Мы предлагаем полный ассортимент продукции Swift: от лодок и вёсел до решений для обустройства гребных клубов и спортивных школ. <br/> Выбирая Rowkz, вы получаете проверенное качество, современные технологии и надёжного партнёра в мире академической гребли.</p>
+				<div class="col-md-12 text-left speech ">
+					<h2 class="section-2-h2" style="color:#207daf; font-weight:700;">Добро пожаловать в Rowkz!</h2>
+					<p class="section-2-p" >Мы являемся официальным дистрибьютором компании Swift, которая с 2005 года производит лодки для академической гребли, аксессуары, вёсла, системы хранения и инфраструктуру для гребных баз. Сегодня Swift — один из крупнейших производителей в мире, представленный более чем в 50 странах. <br/> Наша цель — сделать греблю доступной и комфортной. Мы предлагаем полный ассортимент продукции Swift: от лодок и вёсел до решений для обустройства гребных клубов и спортивных школ. <br/> Выбирая Rowkz, вы получаете проверенное качество, современные технологии и надёжного партнёра в мире академической гребли.</p>
 				</div>
 			</div>
 		</div>
 	</section>
-<section class="section-3">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md-6 mb-4">
-                        <div class="image-card" style="position: relative; overflow: hidden; border-radius: 12px;">
-                            <img src="<?php echo get_template_directory_uri(); ?>/img/WelshRowingCO_09Jul2024-392x272.jpg" alt="Картинка 1" class="img-fluid" style="width:100%; height:320px; object-fit:cover;">
-                            <div class="image-card-text" style="position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(39,39,42,0.7); color: #fff; padding: 20px;">
-                                <h3 style="margin:0;">Заголовок 1</h3>
-                                <p style="margin:0;">Описание или текст для первой картинки.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                        <div class="image-card" style="position: relative; overflow: hidden; border-radius: 12px;">
-                            <img src="<?php echo get_template_directory_uri(); ?>/img/WelshRowingCO_09Jul2024-392x272.jpg" alt="Картинка 2" class="img-fluid" style="width:100%; height:320px; object-fit:cover;">
-                            <div class="image-card-text" style="position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(39,39,42,0.7); color: #fff; padding: 20px;">
-                                <h3 style="margin:0;">Заголовок 2</h3>
-                                <p style="margin:0;">Описание или текст для второй картинки.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-				<!-- Categories ->> -->
-				 <div class="row">
-						<div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-							<div style="position: relative;">
-								<img
-									src="<?php echo get_template_directory_uri(); ?>/img/WelshRowingCO_09Jul2024-392x272.jpg"
-									class="w-100 shadow-1-strong rounded mb-4"
-									alt="Boat on Calm Water"
-								/>
-								<div style="position: absolute; bottom: 16px; left: 16px; color: #fff; background: rgba(39,39,42,0.6); padding: 10px 18px; border-radius: 8px;">
-									<strong>Лодка на воде</strong><br>
-								</div>
-							</div>
-							<div style="position: relative;">
-								<img
-									src="<?php echo get_template_directory_uri(); ?>/img/WelshRowingCO_09Jul2024-392x272.jpg"
-									class="w-100 shadow-1-strong rounded mb-4"
-									alt="Wintry Mountain Landscape"
-								/>
-								<div style="position: absolute; bottom: 16px; left: 16px; color: #fff; background: rgba(39,39,42,0.6); padding: 10px 18px; border-radius: 8px;">
-									<strong>Лодка на воде</strong><br>
-								</div>
-							</div>
-						</div>
 
-						<div class="col-lg-4 mb-4 mb-lg-0">
-							<div style="position: relative;">
-								<img
-									src="<?php echo get_template_directory_uri(); ?>/img/WelshRowingCO_09Jul2024-392x272.jpg"
-									class="w-100 shadow-1-strong rounded mb-4"
-									alt="Mountains in the Clouds"
-								/>
-								<div style="position: absolute; bottom: 16px; left: 16px; color: #fff; background: rgba(39,39,42,0.6); padding: 10px 18px; border-radius: 8px;">
-									<strong>Горы в облаках</strong>
-								</div>
-							</div>
-							<div style="position: relative;">
-								<img
-									src="<?php echo get_template_directory_uri(); ?>/img/WelshRowingCO_09Jul2024-392x272.jpg"
-									class="w-100 shadow-1-strong rounded mb-4"
-									alt="Boat on Calm Water"
-								/>
-								<div style="position: absolute; bottom: 16px; left: 16px; color: #fff; background: rgba(39,39,42,0.6); padding: 10px 18px; border-radius: 8px;">
-									<strong>Лодка на воде</strong>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-lg-4 mb-4 mb-lg-0">
-							<div style="position: relative;">
-								<img
-									src="<?php echo get_template_directory_uri(); ?>/img/WelshRowingCO_09Jul2024-392x272.jpg"
-									class="w-100 shadow-1-strong rounded mb-4"
-									alt="Waves at Sea"
-								/>
-								<div style="position: absolute; bottom: 16px; left: 16px; color: #fff; background: rgba(39,39,42,0.6); padding: 10px 18px; border-radius: 8px;">
-									<strong>Морские волны</strong>
-								</div>
-							</div>
-							<div style="position: relative;">
-								<img
-									src="<?php echo get_template_directory_uri(); ?>/img/WelshRowingCO_09Jul2024-392x272.jpg"
-									class="w-100 shadow-1-strong rounded mb-4"
-									alt="Yosemite National Park"
-								/>
-								<div style="position: absolute; bottom: 16px; left: 16px; color: #fff; background: rgba(39,39,42,0.6); padding: 10px 18px; border-radius: 8px;">
-									<strong>Йосемити</strong>
-								</div>
-							</div>
-						</div>
-					</div>
 <!-- Categories -<< -->
+ <section class="section-3 bg-light py-5">
+    <div class="container">
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <img src="<?php echo get_template_directory_uri(); ?>/img/7.jpg" alt="Современная гребная лодка" class="img-fluid rounded shadow" style="object-fit:cover; width:100%; min-height:120px;">
+            </div>
+            <div class="col-lg-8">
+                <h2 class="mb-3" style="color:#207daf; font-weight:700;">Инновации в каждой детали</h2>
+                <p style="font-size:1.15rem; color:#394247;">
+                    Компания swiftracing — мировой лидер в производстве лодок для академической гребли. Мы предлагаем современные решения для спортсменов, тренеров и клубов: от лёгких и прочных корпусов до эргономичных вёсел и аксессуаров.
+                </p>
+                <ul class="list-unstyled mb-4" >
+                    <li><i class="bi bi-check-circle-fill me-2"></i>Премиальные материалы и технологии</li>
+                    <li><i class="bi bi-check-circle-fill me-2"></i>Гарантия качества и надёжности</li>
+                    <li><i class="bi bi-check-circle-fill me-2"></i>Поддержка и сервис по всей России</li>
+                </ul>
+                <!-- <a href="#" class="btn btn-primary px-4 py-2">Смотреть каталог</a> -->
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="p-4 bg-white rounded shadow-sm h-100">
+                    <i class="bi bi-tsunami" style="font-size: 3rem; color:#207daf; margin-bottom:16px;"></i>
+                    <h5 class="mb-2" >Лодки для гребли</h5>
+                    <p style="font-size:1rem; color:#394247;">Широкий выбор моделей для новичков и профессионалов. Индивидуальный подбор под ваши задачи.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="p-4 bg-white rounded shadow-sm h-100">
+                    <i class="bi bi-life-preserver" style="font-size: 3rem; color:#207daf; margin-bottom:16px;"></i>
+                    <h5 class="mb-2" >Вёсла и аксессуары</h5>
+                    <p style="font-size:1rem; color:#394247;">Современные вёсла, аксессуары, тренажеры и всё необходимое для тренировок и соревнований.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="p-4 bg-white rounded shadow-sm h-100">
+                    <i class="bi bi-headset" style="font-size: 3rem; color:#207daf; margin-bottom:16px;"></i>
+                    <h5 class="mb-2" >Сервис и поддержка</h5>
+                    <p style="font-size:1rem; color:#394247;">Консультации, гарантийное и постгарантийное обслуживание, помощь в выборе и эксплуатации.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
  <!-- New section with logos -->
   <section id="block-13" class="widget widget_block widget_media_image py-5">
     <div class="container text-center">
@@ -202,14 +152,7 @@ get_header();
         </figure>
     </div>
 </section>
-  <!-- End of new section with logos -->
-            </div>
-            <div class="col-md-4 text-center">
-                <?php get_sidebar(); ?>
-            </div>
-        </div>
-    </div>
-</section>
+ 
 
 
 	</main>

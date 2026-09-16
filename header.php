@@ -36,19 +36,20 @@
 				<div class="col-md-4">
 					<ul class="announcement-bar__list">
 						<li>
-						Контакты
+							Контакты
 						</li>
 						<li>
-						<i class="bi bi-google"></i>
+							<i class="bi bi-google"></i>
 						</li>
 						<li>
-						<i class="bi bi-whatsapp"></i>
+							<i class="bi bi-whatsapp"></i>
 						</li>
 						<li>
-						<i class="bi bi-telegram"></i>
+							<i class="bi bi-telegram"></i>
 						</li>
-						<li>
-						<i class="bi bi-youtube"></i>
+						<li class="cart-icon-container">
+							<i class="bi bi-cart3" data-bs-toggle="modal" data-bs-target="#cartModal"></i>
+							<span class="cart-count" id="cart-count">0</span>
 						</li>
 					</ul>
 				</div>
@@ -74,7 +75,7 @@
 			</div>
 		</div>
 
-
+		
 
 		
 

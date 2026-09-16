@@ -12053,18 +12053,30 @@ body {
 }
 
 .main-navigation {
-  font-weight: 400;
+  font-weight: 300;
+}
+.main-navigation ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+.main-navigation .current-menu-item {
+  background-color: #394247;
+  padding: 10px;
 }
 .main-navigation .menu-item {
-  padding: 10px;
+  padding: 15px 1px 15px 4px;
 }
 .main-navigation a {
   color: #fff;
-  padding: 0.6rem 1.4rem;
+  padding: 0.4rem 0.8rem;
   font-size: 1.1rem;
+  text-wrap-mode: nowrap;
 }
 .main-navigation a:hover {
-  background-color: rgba(172, 172, 172, 0.116);
+  text-decoration: underline;
+  text-decoration-color: white;
+  text-decoration-thickness: 1px; /* или любая нужная толщина */
+  text-underline-offset: 13px; /* отступ линии от текста (по желанию) */
 }
 .main-navigation .menu-toggle {
   width: 100%;
@@ -12078,12 +12090,16 @@ body {
 }
 .main-navigation .sub-menu a {
   padding: 10px;
-  background-color: rgba(75, 104, 255, 0.91) !important;
+  background-color: rgb(34, 30, 30) !important;
   font-size: 1rem;
 }
 @media (max-width: 767.98px) {
   .main-navigation {
     flex-wrap: wrap !important;
+  }
+  .main-navigation ul {
+    display: none;
+    flex-wrap: wrap;
   }
 }
 
@@ -12196,4 +12212,10 @@ input[type=text], input[type=email], input[type=url], input[type=password], inpu
   border: 1px solid #ccc;
   border-radius: 3px;
   padding: 7px !important;
+}
+
+.speech {
+  border-left: 8px solid rgb(32, 125, 175);
+  padding: 25px 0 25px 25px;
+  background-color: rgba(150, 181, 202, 0.2117647059);
 }/*# sourceMappingURL=main.css.map */

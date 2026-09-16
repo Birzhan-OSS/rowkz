@@ -1,0 +1,99 @@
+/* Стили для корзины */
+.cart-icon-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.cart-icon-container .bi-cart3 {
+  font-size: 1.2rem;
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+.cart-icon-container .bi-cart3:hover {
+  color: #ffc107;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #dc3545;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 5px;
+  border-radius: 50%;
+  min-width: 18px;
+  text-align: center;
+}
+
+/* Стили для модального окна корзины */
+#cartModal .modal-dialog {
+  max-width: 700px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.cart-item-details {
+  flex-grow: 1;
+}
+
+.cart-item-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.cart-item-price {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.cart-item-quantity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-btn {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #ddd;
+  background: #f8f9fa;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-btn:hover {
+  background: #e9ecef;
+}
+
+.cart-total {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: right;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 2px solid #eee;
+}
+
+.cart-empty {
+  text-align: center;
+  padding: 30px;
+  color: #6c757d;
+}

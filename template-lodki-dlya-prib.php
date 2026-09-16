@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Categories Template
+Template Name: lodki-Для прибрежной гребли Template
 */
 
 get_header();
@@ -10,7 +10,7 @@ get_header();
     <!-- Hero Section -->
     <section class="hero-section bg-light py-5 text-center position-relative" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
         <div class="container py-5">
-            <h1 class="display-4 fw-bold mb-3 animate__animated animate__fadeIn">Каталог товаров</h1>
+            <h1 class="display-4 fw-bold mb-3 animate__animated animate__fadeIn">Лодки - Для прибрежной гребли</h1>
             <p class="lead mb-4 animate__animated animate__fadeIn" style="animation-delay: 0.2s;">
                 Познакомьтесь с нашим широким ассортиментом продукции, отвечающей вашим потребностям.
             </p>
@@ -22,17 +22,51 @@ get_header();
     <section class="py-5">
         <div class="container">
             <form id="catalog-filter" class="row g-3 mb-5 animate__animated animate__fadeInUp">
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <input type="text" name="s" class="form-control shadow-sm" placeholder="Найти товар по названию или описанию">
                 </div>
                 <div class="col-md-3">
                     <?php
-                    $categories = get_categories(['hide_empty' => true]);
+                    // Только подрубрики рубрики "Лодки"
+                    $lodki_cat = get_category_by_slug('lodki');
+                    $lodki_cat_id = $lodki_cat ? $lodki_cat->term_id : 0;
+                    $lodki_subcats = get_categories([
+                        'child_of' => $lodki_cat_id,
+                        'hide_empty' => true
+                    ]);
                     ?>
-                    <select name="cat" class="form-select shadow-sm">
-                        <option value="">Любая категория</option>
-                        <?php foreach ($categories as $cat): ?>
+                    <select name="lodki_subcat" class="form-select shadow-sm">
+                        <option value="">Все подкатегории лодок</option>
+                        <?php foreach ($lodki_subcats as $cat): ?>
                             <option value="<?php echo $cat->term_id; ?>"><?php echo $cat->name; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <?php
+                    // Пример фильтра по произодителю (кастомный таксономия или мета-поле)
+                    // Здесь пример для таксономии 'proizvoditel'
+                    $proizvoditeli = get_terms([
+                        'taxonomy' => 'proizvoditel',
+                        'hide_empty' => true,
+                    ]);
+                    ?>
+                    <select name="proizvoditel" class="form-select shadow-sm">
+                        <option value="">Производство</option>
+                        <?php foreach ($proizvoditeli as $term): ?>
+                            <option value="<?php echo $term->slug; ?>"><?php echo $term->name; ?></option>
+                        <?php endforeach; ?>
+                    </select> <br/>
+                    <?php
+                    $materials = get_terms([
+                        'taxonomy' => 'material',
+                        'hide_empty' => true,
+                    ]);
+                    ?>
+                    <select name="material" class="form-select shadow-sm">
+                        <option value="">Материал</option>
+                        <?php foreach ($materials as $term): ?>
+                            <option value="<?php echo $term->slug; ?>"><?php echo $term->name; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -52,8 +86,6 @@ get_header();
             </div>
         </div>
     </section>
-
-
 </main>
 
 <script>
@@ -69,7 +101,8 @@ document.addEventListener('DOMContentLoaded', function() {
             body: new URLSearchParams({
                 action: 'filter_catalog',
                 s: formData.get('s') || '',
-                cat: formData.get('cat') || ''
+                lodki_subcat: formData.get('lodki_subcat') || '',
+                proizvoditel: formData.get('proizvoditel') || ''
             })
         })
         .then(response => response.text())
@@ -83,13 +116,11 @@ document.addEventListener('DOMContentLoaded', function() {
         fetchCatalog();
     });
 
-    // Реальный фильтр: реагировать на ввод и выбор
     document.querySelectorAll('#catalog-filter input, #catalog-filter select').forEach(el => {
         el.addEventListener('input', fetchCatalog);
         el.addEventListener('change', fetchCatalog);
     });
 
-    // Первый запуск
     fetchCatalog();
 });
 </script>

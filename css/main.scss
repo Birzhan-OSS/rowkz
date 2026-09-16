@@ -98,31 +98,41 @@ body {
     background-color: #27272A;
     border-top: 7px solid var(--colormag-color-9, #207daf);
 }
-
+   
 
 .main-navigation {
-	font-weight: 400;
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+    }
 
-	// .current-menu-item {
-	// 	background-color: #4690bd;
-	// 	;
-	// 	padding: 10px;
-	// }
+	font-weight: 300;
+   
+
+	.current-menu-item {
+		background-color: #394247;
+		;
+		padding: 10px;
+	}
 
 	.menu-item {
-		padding: 10px;
+		padding: 15px 1px 15px 4px;
 	}
 
 	a {
 		color: #fff;
-		padding: 0.6rem 1.4rem;
+		padding: 0.4rem 0.8rem;
 		font-size: 1.1rem;
+        text-wrap-mode: nowrap;
+
 	}
 
-	a:hover {
-		background-color: rgba(172, 172, 172, 0.116);
-		//border-radius: 10px;
-	}
+a:hover {
+    text-decoration: underline;
+    text-decoration-color: white;
+    text-decoration-thickness: 1px; /* или любая нужная толщина */
+    text-underline-offset: 13px;     /* отступ линии от текста (по желанию) */
+}
 
 	.menu-toggle {
 		width: 100%;
@@ -133,13 +143,14 @@ body {
 	}
 
 	.sub-menu {
+        
 		li {
 			padding: 0px !important;
 		}
 
 		a {
 			padding: 10px;
-			background-color: rgba(75, 104, 255, 0.91) !important;
+			background-color: rgb(34 30 30)!important;
 			font-size: 1rem;
 		}
 
@@ -147,6 +158,10 @@ body {
 
 	@include media-breakpoint-down(md) {
 		flex-wrap: wrap !important;
+        ul {
+        display: none;
+        flex-wrap: wrap;
+    }
 	}
 
 }
@@ -265,3 +280,10 @@ input[type="text"], input[type="email"], input[type="url"], input[type="password
     border-radius: 3px;
     padding: 7px!important;
 }
+
+
+    .speech {
+    border-left: 8px solid rgb(32 125 175);;
+    padding: 25px 0 25px 25px;
+    background-color: rgba(150, 181, 202, 0.2117647059);
+    }   

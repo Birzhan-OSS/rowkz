@@ -43,6 +43,33 @@
 </footer>
 </div><!-- #page -->
 
+<!-- Модальное окно корзины -->
+<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cartModalLabel">Корзина</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="cart-content">
+                    <div class="cart-empty">
+                        <i class="bi bi-cart-x" style="font-size: 3rem; color: #ccc;"></i>
+                        <p>Ваша корзина пуста</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="cart-total d-none">
+                    Итого: <span id="cart-total">Цена по запросу</span>
+                </div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary d-none" id="checkout-btn">Оформить заказ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php wp_footer(); ?>
 
 </body>
